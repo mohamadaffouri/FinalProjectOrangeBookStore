@@ -11,6 +11,8 @@ class Inventory extends Model
         'quantity',
         'condition',
         'status',
+        'price',  // New field
+    'cost'
     ];
 
     public function book()

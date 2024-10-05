@@ -44,4 +44,16 @@ class InventoryController extends Controller
 
         return redirect()->route('inventory.index')->with('success', 'Book added to inventory successfully!');
     }
+    public function showBooks()
+{
+    // Fetch all inventory items along with their related books
+        $inventoryItems = Inventory::with('book')->get();
+
+        return view('buyBook.allBook', compact('inventoryItems'));
+}
+public function show($id)
+{
+    $inventoryItem = Inventory::with('book')->findOrFail($id);
+    return view('buyBook.bookDetails', compact('inventoryItem')); // Pass the book data to the view
+}
 }

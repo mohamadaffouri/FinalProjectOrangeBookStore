@@ -38,7 +38,7 @@
                            <circle stroke="red" cx="190" cy="190" r="180" stroke-width="6" stroke-linecap="round"></circle>
                         </svg>
                      </div>
-                     <img src="{{ asset('assets/img/logo/preloader/preloader-icon.png') }}" alt="">                  
+                     <img src="{{ asset('assets/img/logo/preloader/preloader-icon.png') }}" alt="">
                   </div>
                   <p class="tp-preloader-subtitle">Loading...</p>
                </div>
@@ -114,30 +114,7 @@
       <div class="body-overlay"></div>
       <!-- cart mini area end -->
 
-      <!-- announcement area start -->
-      <div class="tp-announcement-area p-relative" data-background="{{ asset('assets/img/shop/shop-bg.png') }}">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-12">
-                  <div class="tp-announcement-wrap text-center">
-                     <div class="tp-announcement-content d-flex justify-content-center">
-                        <p>Price of $15 (<span>35% off</span>) for a limited time only, back up to $39 soon.</p>
-                        <a class="tp-announcement-btn" href="shop-grid.html">Shop Now</a>
-                     </div>
-                     <div class="tp-announcement-close">
-                        <button class="hide-button">
-                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M9 1L1 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                              <path d="M1 1L9 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                           </svg>
-                        </button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- announcement area end -->
+
 
       <!-- header-area-start -->
       <header class="header-area p-relative">

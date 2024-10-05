@@ -72,3 +72,9 @@ Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory
 Route::get('/SellYourBook', function () {
     return view('sellBookPages.home'); // Home page redirects to ISBN check
 });
+Route::get('/homeShop', function () {
+    return view('buyBook.homeShop'); // Home page redirects to ISBN check
+});
+
+Route::get('/allBooks', [InventoryController::class, 'showBooks'])->name('books.index');
+Route::get('/books/{id}', [InventoryController::class, 'show'])->name('books.show');

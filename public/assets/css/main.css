@@ -25,7 +25,7 @@
 		2.3 Buttons
 		2.4 Animations
 		2.5 Preloader
-		2.6 Background 
+		2.6 Background
 		2.7 Carousel
 		2.8 Nice Select
 		2.9 Pagination
@@ -240,7 +240,7 @@ li,
 }
 
 /*---------------------------------
-	typography css start 
+	typography css start
 ---------------------------------*/
 body {
   font-family: var(--tp-ff-body);
@@ -613,7 +613,7 @@ div.demo img {
 }
 
 /*----------------------------------------
-    Body Overlay 
+    Body Overlay
 -----------------------------------------*/
 .body-overlay {
   background-color: var(--tp-common-black);
@@ -30984,5 +30984,10 @@ span.common-pale-purple {
     margin-bottom: 20px;
   }
 }
-
+.fixed-image-size {
+    width: 100%;           /* Ensures the image takes up the full width of the parent container */
+    height: 200px;         /* Set a fixed height for the images */
+    object-fit: cover;     /* This makes sure the image covers the entire area without distortion */
+    object-position: center; /* This keeps the image centered within the container */
+}
 /*# sourceMappingURL=main.css.map */
