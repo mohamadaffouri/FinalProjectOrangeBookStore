@@ -102,9 +102,37 @@ class BookController extends Controller
                 'image' => $request->input('image_url'),
             ]);
         }
-
+// Save book details in the session (for cart or further use)
+$cart = session()->get('cart', []); // Retrieve existing cart or empty array
+$cart[$book->id] = [
+    'id' => $book->id,
+    'title' => $book->title,
+    'author' => $book->author,
+    'isbn_10' => $book->isbn_10,
+    'isbn_13' => $book->isbn_13,
+    'image' => $book->image,
+    'quantity' => 1, // Default quantity for the cart
+];
+session()->put('cart', $cart);
         // Redirect to the inventory acceptance page
         return redirect()->route('inventory.acceptBook', ['book' => $book->id]);
+    }
+    public function remove(Request $request, $id)
+    {
+        // Get the current cart from the session
+        $cart = session()->get('cart', []);
+
+        // Check if the item exists in the cart
+        if(isset($cart[$id])) {
+            // Remove the item from the cart
+            unset($cart[$id]);
+
+            // Update the session with the modified cart
+            session()->put('cart', $cart);
+        }
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Item removed from cart successfully!');
     }
 }
 

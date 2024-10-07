@@ -1040,6 +1040,21 @@
 			});
 		});
 	}
-
+    document.querySelectorAll('.tp-product-details-review-form-rating-icon span').forEach(star => {
+        star.addEventListener('click', function() {
+            const value = this.getAttribute('data-value');
+            document.getElementById('rating-value').value = value;
+    
+            // Highlight selected stars and reset the rest
+            document.querySelectorAll('.tp-product-details-review-form-rating-icon span i').forEach((s, index) => {
+                s.classList.remove('fa-solid');
+                s.classList.add('fa-regular'); // Reset to outlined stars
+                if (index < value) {
+                    s.classList.remove('fa-regular');
+                    s.classList.add('fa-solid'); // Solid star for the selected rating
+                }
+            });
+        });
+    });
 
 })(jQuery);

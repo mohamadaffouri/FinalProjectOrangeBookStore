@@ -58,20 +58,11 @@
                          <h3 class="tp-product-details-action-title">Quantity</h3>
                          <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
                             <div class="tp-product-details-quantity">
-                               <div class="tp-product-quantity mb-15 mr-15">
-                                  <span class="tp-cart-minus">
-                                     <svg width="11" height="2" viewBox="0 0 11 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 1H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                     </svg>
-                                  </span>
-                                  <input class="tp-cart-input" type="text" value="1">
-                                  <span class="tp-cart-plus">
-                                     <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 6H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5.5 10.5V1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                     </svg>
-                                  </span>
-                               </div>
+                                <div class="tp-product-quantity mb-15 mr-15">
+                                    <button class="tp-cart-minus">-</button>
+                                    <input class="tp-cart-input" type="text" id="quantity-input" value="1">
+                                    <button class="tp-cart-plus">+</button>
+                                </div>
                             </div>
                             <div class="tp-product-details-add-to-cart mb-15 w-100">
                                <button class="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
@@ -189,8 +180,13 @@
                                               <td>368</td>
                                            </tr>
                                            <tr>
-                                              <td>ISBN-09</td>
-                                              <td>978-0-7352-1911-3</td>
+                                              <td>ISBN-10</td>
+                                              <td>{{$inventoryItem->book->isbn_10  }}</td>
+                                           </tr>
+                                           <tr>
+                                              <td>ISBN-13</td>
+                                              
+                                              <td>{{$inventoryItem->book->isbn_13  }}</td>
                                            </tr>
                                            <tr>
                                               <td>Published</td>
@@ -207,181 +203,189 @@
                                <div class="row">
                                   <div class="col-lg-6">
                                      <div class="tp-product-details-review-statics">
-                                        <!-- number -->
-                                        <div class="tp-product-details-review-number d-inline-block mb-50">
-                                           <h3 class="tp-product-details-review-number-title">Customer reviews</h3>
-                                           <div class="tp-product-details-review-summery d-flex align-items-center">
-                                              <div class="tp-product-details-review-summery-value">
-                                                 <span>4.5</span>
-                                              </div>
-                                              <div class="tp-product-details-review-summery-rating d-flex align-items-center">
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <p>(36 Reviews)</p>
-                                              </div>
-                                           </div>
-                                           <div class="tp-product-details-review-rating-list">
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>5 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="82%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>82%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
+                                       <!-- Review Summary -->
+<div class="tp-product-details-review-number d-inline-block mb-50">
+    <h3 class="tp-product-details-review-number-title">Customer reviews</h3>
+    <div class="tp-product-details-review-summery d-flex align-items-center">
+        <div class="tp-product-details-review-summery-value">
+            <span>{{ number_format($averageRating, 1) }}</span> <!-- Average Rating -->
+        </div>
+        <div class="tp-product-details-review-summery-rating d-flex align-items-center">
+            <!-- Display stars based on average rating -->
+            @for($i = 1; $i <= 5; $i++)
+                @if($i <= $averageRating)
+                    <span><i class="fa-solid fa-star"></i></span>
+                @else
+                    <span><i class="fa-solid fa-star" style="color: #ccc;"></i></span>
+                @endif
+            @endfor
+            <p>({{ $totalReviews }} Reviews)</p> <!-- Total number of reviews -->
+        </div>
+    </div>
 
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>4 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="30%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>30%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
+    <!-- Rating Breakdown -->
+    <div class="tp-product-details-review-rating-list">
+        @foreach($starRatings as $stars => $data)
+        <!-- Single item -->
+        <div class="tp-product-details-review-rating-item d-flex align-items-center">
+            <span>{{ $stars }} Star</span>
+            <div class="tp-product-details-review-rating-bar">
+                <span class="tp-product-details-review-rating-bar-inner" style="width: {{ $data['percent'] }}%;"></span>
+            </div>
+            <div class="tp-product-details-review-rating-percent">
+                <span>{{ number_format($data['percent'], 0) }}%</span>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
 
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>3 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="15%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>15%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
 
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>2 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="6%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>6%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
+                                       <div class="tp-product-details-review-list pr-110">
+    <h3 class="tp-product-details-review-title">Rating & Review</h3>
 
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>1 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="10%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>10%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
-                                           </div>
-                                        </div>
+    @foreach($inventoryItem->book->reviews as $review)
+    <div class="tp-product-details-review-avater d-flex align-items-start">
+        <!-- User Avatar -->
+        <div class="tp-product-details-review-avater-thumb">
+            <a href="#">
+                <img src="{{ asset('assets/img/shop/product/shop-product-user-1.png') }}" alt="User Image">
+            </a>
+        </div>
 
-                                        <!-- reviews -->
-                                        <div class="tp-product-details-review-list pr-110">
-                                           <h3 class="tp-product-details-review-title">Rating & Review</h3>
-                                           <div class="tp-product-details-review-avater d-flex align-items-start">
-                                              <div class="tp-product-details-review-avater-thumb">
-                                                 <a href="#">
-                                                    <img src="assets/img/shop/product/shop-product-user-1.png" alt="">
-                                                 </a>
-                                              </div>
-                                              <div class="tp-product-details-review-avater-content">
-                                                 <div class="tp-product-details-review-avater-rating d-flex align-items-center">
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                 </div>
-                                                 <h3 class="tp-product-details-review-avater-title">Eleanor Fant</h3>
-                                                 <span class="tp-product-details-review-avater-meta">06 March, 2024 </span>
+        <!-- Review Content -->
+        <div class="tp-product-details-review-avater-content">
+            <!-- Review Rating -->
+            <div class="tp-product-details-review-avater-rating d-flex align-items-center">
+                @for($i = 1; $i <= 5; $i++)
+                    @if($i <= $review->rating)
+                        <span><i class="fa-solid fa-star"></i></span>
+                    @else
+                        <span><i class="fa-solid fa-star" style="color: #ccc;"></i></span>
+                    @endif
+                @endfor
+            </div>
 
-                                                 <div class="tp-product-details-review-avater-comment">
-                                                    <p>Designed very similarly to the nearly double priced Galaxy tab S6, with the only removal being.</p>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                           <div class="tp-product-details-review-avater d-flex align-items-start">
-                                              <div class="tp-product-details-review-avater-thumb">
-                                                 <a href="#">
-                                                    <img src="assets/img/shop/product/shop-product-user-2.png" alt="">
-                                                 </a>
-                                              </div>
-                                              <div class="tp-product-details-review-avater-content">
-                                                 <div class="tp-product-details-review-avater-rating d-flex align-items-center">
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                    <span><i class="fa-solid fa-star"></i></span>
-                                                 </div>
-                                                 <h3 class="tp-product-details-review-avater-title">Theodore Handle</h3>
-                                                 <span class="tp-product-details-review-avater-meta">06 March, 2024 </span>
+            <!-- Reviewer Name and Date -->
+            <h3 class="tp-product-details-review-avater-title">{{ $review->user->name }}</h3>
+            <span class="tp-product-details-review-avater-meta">{{ $review->created_at->format('d M, Y') }}</span>
 
-                                                 <div class="tp-product-details-review-avater-comment">
-                                                    <p>This review is for the Samsung Tab S6 Lite, 64gb wifi in blue. purchased this product performed.</p>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                        </div>
+            <!-- Review Comment -->
+            <div class="tp-product-details-review-avater-comment">
+                <p>{{ $review->review }}</p>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
                                      </div>
                                   </div> <!-- end col -->
                                   <div class="col-lg-6">
                                      <div class="tp-product-details-review-form">
                                         <h3 class="tp-product-details-review-form-title">Review this product</h3>
                                         <p>Your email address will not be published. Required fields are marked *</p>
-                                        <form action="#">
-                                           <div class="tp-product-details-review-form-rating d-flex align-items-center">
-                                              <p>Your Rating :</p>
-                                              <div class="tp-product-details-review-form-rating-icon d-flex align-items-center">
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                              </div>
-                                           </div>
-                                           <div class="tp-product-details-review-input-wrapper">
-                                              <div class="tp-product-details-review-input-box">
-                                                 <div class="tp-product-details-review-input">
-                                                    <textarea id="msg" name="msg" placeholder="Write your review here..."></textarea>
-                                                 </div>
-                                                 <div class="tp-product-details-review-input-title">
-                                                    <label for="msg">Your Name</label>
-                                                 </div>
-                                              </div>
-                                              <div class="tp-product-details-review-input-box">
-                                                 <div class="tp-product-details-review-input">
-                                                    <input name="name" id="name" type="text" placeholder="Pranta">
-                                                 </div>
-                                                 <div class="tp-product-details-review-input-title">
-                                                    <label for="name">Your Name</label>
-                                                 </div>
-                                              </div>
-                                              <div class="tp-product-details-review-input-box">
-                                                 <div class="tp-product-details-review-input">
-                                                    <input name="email" id="email" type="email" placeholder="acadia@mail.com">
-                                                 </div>
-                                                 <div class="tp-product-details-review-input-title">
-                                                    <label for="email">Your Email</label>
-                                                 </div>
-                                              </div>
-                                           </div>
-                                           <div class="tp-product-details-review-suggetions mb-20">
-                                              <div class="tp-product-details-review-remeber">
-                                                 <input id="remeber" type="checkbox">
-                                                 <label for="remeber">Save my name, email, and website in this browser for the next time I comment.</label>
-                                              </div>
-                                           </div>
-                                           <div class="tp-product-details-review-btn-wrapper">
-                                              <button class="tp-product-details-review-btn">Submit</button>
-                                           </div>
-                                        </form>
+                                     
+                           <!-- Success message container -->
+<div id="review-message" class="alert alert-success" style="display: none;">
+    Your review has been submitted!
+</div>
+
+<form id="review-form" method="POST">
+    @csrf
+    <div class="tp-product-details-review-form-rating d-flex align-items-center">
+        <p>Your Rating :</p>
+        <div class="tp-product-details-review-form-rating-icon d-flex align-items-center">
+            <span data-value="1"><i class="fa-solid fa-star"></i></span>
+            <span data-value="2"><i class="fa-solid fa-star"></i></span>
+            <span data-value="3"><i class="fa-solid fa-star"></i></span>
+            <span data-value="4"><i class="fa-solid fa-star"></i></span>
+            <span data-value="5"><i class="fa-solid fa-star"></i></span>
+        </div>
+    </div>
+
+    <!-- Hidden field to store the selected rating -->
+    <input type="hidden" id="rating-value" name="rating" value="0">
+
+    <!-- Hidden field to store the book_id -->
+    <input type="hidden" name="book_id" value="{{ $inventoryItem->book->id }}">
+
+    <div class="tp-product-details-review-input-wrapper">
+        <div class="tp-product-details-review-input-box">
+            <div class="tp-product-details-review-input">
+                <textarea id="msg" name="msg" placeholder="Write your review here..." required></textarea>
+            </div>
+            <div class="tp-product-details-review-input-title">
+                <label for="msg">Your Review</label>
+            </div>
+        </div>
+    </div>
+
+    @auth
+    <!-- Hidden input for authenticated user's ID -->
+    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+
+    <!-- Show submit button if user is logged in -->
+    <div class="tp-product-details-review-btn-wrapper">
+        <button type="submit" class="tp-product-details-review-btn">Submit</button>
+    </div>
+    @endauth
+
+    @guest
+    <!-- For guests, show a login suggestion or alert -->
+    <div class="alert alert-warning">
+        Please <a href="{{ route('login') }}">login</a> to submit your review.
+    </div>
+    @endguest
+</form>
+
+<!-- jQuery and AJAX Script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Handle form submission using AJAX
+        $('#review-form').on('submit', function(e) {
+            e.preventDefault();  // Prevent the default form submission
+
+            // Serialize form data
+            var formData = $(this).serialize();
+
+            // Send the AJAX request
+            $.ajax({
+                url: "{{ route('reviews.store') }}",  // Your form submission URL
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    // Show the success message
+                    $('#review-message').show();
+
+                    // Clear the form
+                    $('#review-form')[0].reset();
+
+                    // Optionally, scroll to the review section
+                    $('html, body').animate({
+                        scrollTop: $("#review-message").offset().top
+                    }, 1000);
+                },
+                error: function(xhr) {
+                    // Handle error response (optional)
+                    alert('There was an error submitting your review.');
+                }
+            });
+        });
+
+        // Handle star rating click event
+        $('.tp-product-details-review-form-rating-icon span').on('click', function() {
+            var rating = $(this).data('value');
+            $('#rating-value').val(rating);
+
+            // Highlight the selected stars
+            $(this).siblings().removeClass('selected');
+            $(this).addClass('selected');
+        });
+    });
+</script>
+
                                      </div>
                                   </div>
                                </div>

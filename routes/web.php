@@ -78,3 +78,10 @@ Route::get('/homeShop', function () {
 
 Route::get('/allBooks', [InventoryController::class, 'showBooks'])->name('books.index');
 Route::get('/books/{id}', [InventoryController::class, 'show'])->name('books.show');
+use App\Http\Controllers\ReviewController;
+
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::post('/cart/remove/{id}', [BookController::class, 'remove'])->name('cart.remove');
+Route::get('/sellCart', function () {
+    return view('sellBookPages.sellCart'); 
+})->name('sellCart');

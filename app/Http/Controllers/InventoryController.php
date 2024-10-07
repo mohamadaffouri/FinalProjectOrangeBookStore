@@ -53,7 +53,20 @@ class InventoryController extends Controller
 }
 public function show($id)
 {
-    $inventoryItem = Inventory::with('book')->findOrFail($id);
-    return view('buyBook.bookDetails', compact('inventoryItem')); // Pass the book data to the view
+    
+    $inventoryItem = Inventory::with(['book.reviews' => function ($query) {
+        $query->orderBy('created_at', 'desc')->take(2);
+    }])->findOrFail($id);
+    $averageRating = $inventoryItem->book->reviews->avg('rating');
+    $totalReviews = $inventoryItem->book->reviews->count();
+    $starRatings = [];
+    for ($i = 5; $i >= 1; $i--) {
+        $starRatings[$i] = [
+            'count' => $inventoryItem->book->reviews->where('rating', $i)->count(),
+            'percent' => ($totalReviews > 0) ? ($inventoryItem->book->reviews->where('rating', $i)->count() / $totalReviews) * 100 : 0
+        ];
+    }
+
+    return view('buyBook.bookDetails', compact('inventoryItem', 'averageRating', 'totalReviews', 'starRatings'));
 }
 }

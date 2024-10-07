@@ -20,6 +20,7 @@
       <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    </head>
 
    <body>
@@ -77,18 +78,49 @@
                </div>
                <div class="cartmini__widget">
                   <div class="cartmini__widget-item">
-                     <div class="cartmini__thumb">
-                        <a href="shop-details.html">
-                           <img src="{{ asset('assets/img/shop/product/shop-product-1.jpg') }}" alt="">
-                        </a>
-                     </div>
-                     <div class="cartmini__content">
-                        <h5 class="cartmini__title home-shop"><a href="shop-details.html">Nar Allt Ar Over</a></h5>
-                        <div class="cartmini__price-wrapper">
-                           <span class="cartmini__price home-shop">$108.00</span>
-                           <span class="cartmini__quantity">x2</span>
-                        </div>
-                     </div>
+                   
+                     @php
+    $cartItems = session()->get('cart', []); // Retrieve cart items from session
+@endphp
+
+@if (count($cartItems) > 0)
+<div class="cartmini__item-wrapper">
+    @foreach ($cartItems as $item)
+        <div class="cartmini__item card mb-3">
+            <div class="card-body d-flex">
+                <!-- Image Section -->
+                <div class="cartmini__img">
+                    <img src="{{ $item['image'] ?? 'path/to/default-image.jpg' }}" alt="Book Image" class="img-fluid" style="max-width: 100px;">
+                </div>
+
+                <!-- Details Section -->
+                <div class="cartmini__content ms-3">
+                    <!-- Book Title -->
+                    <h5 class="cartmini__title">
+                        <a href="{{ route('books.show', $item['id']) }}">{{ $item['title'] }}</a>
+                    </h5>
+
+                    <!-- Price and Quantity -->
+                    <div class="cartmini__price-wrapper d-flex align-items-center">
+                        <span class="cartmini__price">${{ number_format($item['price'] ?? 0, 2) }}</span>
+                        <span class="cartmini__quantity ms-2">x{{ $item['quantity'] }}</span>
+                    </div>
+                </div>
+
+                <!-- Remove Button (Optional) -->
+                <div class="cartmini__remove ms-auto">
+                    <form action="{{ route('cart.remove', $item['id']) }}" method="POST">
+                        @csrf <!-- Important for Laravel CSRF protection -->
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+@else
+    <p>No items in the cart.</p>
+@endif
                      <a href="#" class="cartmini__del home-shop"><i class="fa-regular fa-xmark"></i></a>
                   </div>
                </div>
@@ -105,7 +137,7 @@
                   <span>$113.00</span>
                </div>
                <div class="cartmini__checkout-btn home-shop">
-                  <a href="cart.html" class="tp-btn mb-10 w-100"> view cart</a>
+                <a href="{{ route('sellCart') }}" class="tp-btn mb-10 w-100">View Cart</a>
                   <a href="checkout.html" class="tp-btn tp-btn-border w-100"> checkout</a>
                </div>
             </div>

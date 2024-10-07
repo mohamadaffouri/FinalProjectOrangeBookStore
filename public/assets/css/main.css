@@ -30991,3 +30991,30 @@ span.common-pale-purple {
     object-position: center; /* This keeps the image centered within the container */
 }
 /*# sourceMappingURL=main.css.map */
+.fa-solid {
+    color: #FFD700; /* Gold color for filled stars */
+}
+.fa-regular {
+    color: #cccccc; /* Light gray for unfilled stars */
+}
+.cartmini__item-wrapper {
+    display: block;
+}
+
+.cartmini__item {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.cartmini__img img {
+    max-width: 100px;
+    height: auto;
+}
+
+.cartmini__content {
+    flex-grow: 1;
+}
+
+.cartmini__remove {
+    align-self: center;
+}
