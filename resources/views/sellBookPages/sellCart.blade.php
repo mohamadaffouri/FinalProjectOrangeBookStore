@@ -1,4 +1,4 @@
-@extends('layouts.app1')
+@extends('layouts.appSale')
 
 @section('content')
 
@@ -10,6 +10,11 @@
           <div class="row">
             <div class="col-xl-9 col-lg-8">
                 <div class="tp-cart-list mb-25 mr-30">
+                    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
                    <table class="table">
                       <thead>
                          <tr>
@@ -36,7 +41,7 @@
                                       <span class="tp-cart-minus">
                                          <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 1H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                         </svg>                                                             
+                                         </svg>
                                       </span>
                                       <input class="tp-cart-input" type="text" value="{{ $details['quantity'] }}" readonly>
                                       <span class="tp-cart-plus">
@@ -92,7 +97,7 @@
                    </div>
                 </div>
             </div>
-            
+
              <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="tp-cart-checkout-wrapper">
                    <div class="tp-cart-checkout-top d-flex align-items-center justify-content-between">
@@ -122,7 +127,10 @@
                       <span>$724</span>
                    </div>
                    <div class="tp-cart-checkout-proceed">
-                      <a href="checkout.html" class="tp-cart-checkout-btn w-100">Proceed to Checkout</a>
+                    <form action="{{ route('proceed.order') }}" method="POST">
+                        @csrf
+                        <button type="submit"  class="tp-cart-checkout-btn w-100">Proceed to Checkout</button>
+                    </form>
                    </div>
                 </div>
              </div>

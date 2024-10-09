@@ -51,10 +51,15 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 //----------------------------------------Test
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('books.checkIsbn'); // Home page redirects to ISBN check
 });
+
+Route::get('/homePage', function () {
+    return view('mainPages.homePage');
+})->name('homePage');
 
 // Routes for BookController
 Route::post('/books/check-isbn', [BookController::class, 'checkIsbn'])->name('books.checkIsbn');
@@ -71,9 +76,9 @@ Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory
 
 Route::get('/SellYourBook', function () {
     return view('sellBookPages.home'); // Home page redirects to ISBN check
-});
+})->name('SellYourBook');
 Route::get('/homeShop', function () {
-    return view('buyBook.homeShop'); // Home page redirects to ISBN check
+    return view('buyBook.homeShop');
 });
 
 Route::get('/allBooks', [InventoryController::class, 'showBooks'])->name('books.index');
@@ -83,5 +88,15 @@ use App\Http\Controllers\ReviewController;
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 Route::post('/cart/remove/{id}', [BookController::class, 'remove'])->name('cart.remove');
 Route::get('/sellCart', function () {
-    return view('sellBookPages.sellCart'); 
+    return view('sellBookPages.sellCart');
 })->name('sellCart');
+Route::post('/proceed-order', [OrderController::class, 'proceedOrder'])->name('proceed.order');
+Route::get('/manageSellOrders', [OrderController::class, 'index'])->name('manageSellOrders');
+Route::get('/manageSellOrders/{order}', [OrderController::class, 'show'])->name('order.show');
+Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+
+
+//------------Inventory Books---------------
+Route::get('/manageBooks', [InventoryController::class, 'adminManageBook'])->name('manageBooks');
+Route::put('/inventory/updateCondition/{id}', [InventoryController::class, 'updateCondition'])->name('inventory.updateCondition');

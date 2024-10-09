@@ -185,7 +185,7 @@
                                            </tr>
                                            <tr>
                                               <td>ISBN-13</td>
-                                              
+
                                               <td>{{$inventoryItem->book->isbn_13  }}</td>
                                            </tr>
                                            <tr>
@@ -285,7 +285,7 @@
                                      <div class="tp-product-details-review-form">
                                         <h3 class="tp-product-details-review-form-title">Review this product</h3>
                                         <p>Your email address will not be published. Required fields are marked *</p>
-                                     
+
                            <!-- Success message container -->
 <div id="review-message" class="alert alert-success" style="display: none;">
     Your review has been submitted!
@@ -402,108 +402,60 @@
 
 
     <!-- product details related start -->
-    <section class="tp-product-related-area pt-80 pb-50">
-       <div class="container">
-          <div class="row">
-             <div class="col-lg-12">
-                <div class="tp-product-related-heading text-center mb-30">
-                   <h4 class="tp-product-related-title">Related Products</h4>
+<section class="tp-product-related-area pt-80 pb-50">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="tp-product-related-heading text-center mb-30">
+               <h4 class="tp-product-related-title">Similar Books</h4>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         @foreach ($relatedBooks as $inventory)
+         <div class="col-lg-3 col-sm-6">
+            <div class="tp-shop-product-item text-center mb-50 fixed-card-size d-flex flex-column" style="height: 100%; justify-content: space-between;     background-color: #f9f9f5;
+            ">
+                    <!-- Image container with fixed size and centered image -->
+                    <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
+                        <a href="{{ route('books.show', $inventory->id) }}">
+                            <img src="{{ $inventory->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
+                        </a>
+                        <div class="tp-shop-product-thumb-tag">
+                            <span class="{{ $inventory->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($inventory->condition) }}</span>
+                        </div>
+                        <div class="tp-shop-product-thumb-btn">
+                            <button class="btn btn-primary">Add to cart</button>
+                        </div>
+                    </div>
+                    <!-- Inventory content -->
+                    <div class="tp-shop-product-content card-content d-flex flex-column" style="flex-grow: 1;">
+                        <div class="tp-shop-product-tag">
+                            <span>{{ $inventory->book->author }}</span>
+                        </div>
+                        <h4 class="tp-shop-product-title card-title">
+                            <a href="{{ route('books.show', $inventory->id) }}">{{ $inventory->book->title }}</a>
+                        </h4>
+                    </div>
+                    <!-- Status, Quantity, and Price at the bottom -->
+                    <div class="tp-shop-product-bottom mt-auto" style="text-align: center; padding-bottom: 10px;">
+                        <div class="tp-shop-product-price card-price">
+                            <span>Quantity: {{ $inventory->quantity }}</span>
+                        </div>
+                        <div class="tp-shop-product-status card-status">
+                            <span>Status: {{ ucfirst($inventory->status) }}</span>
+                        </div>
+                        <div class="tp-shop-product-price" style="padding-top: 10px;">
+                             <span>${{ number_format($inventory->price, 2) }}</span>
+                        </div>
+                    </div>
                 </div>
-             </div>
-          </div>
-          <div class="row">
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-product-item text-center mb-50">
-                   <div class="tp-shop-product-thumb p-relative">
-                      <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-1.jpg" alt=""></a>
-                      <div class="tp-shop-product-thumb-tag">
-                         <span class="hot">Hot</span>
-                      </div>
-                      <div class="tp-shop-product-thumb-btn">
-                         <button>Add to cart</button>
-                      </div>
-                   </div>
-                   <div class="tp-shop-product-content">
-                      <div class="tp-shop-product-tag">
-                         <span>Family Story</span>
-                      </div>
-                      <h4 class="tp-shop-product-title"><a href="shop-details.html">Nar Allt Ar Over</a></h4>
-                      <div class="tp-shop-product-price">
-                         <span>$105.00</span>
-                      </div>
-                   </div>
-                </div>
-             </div>
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-product-item text-center mb-50">
-                   <div class="tp-shop-product-thumb p-relative">
-                      <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-2.jpg" alt=""></a>
-                      <div class="tp-shop-product-thumb-tag">
-                         <span class="off">35% off</span>
-                      </div>
-                      <div class="tp-shop-product-thumb-btn">
-                         <button>Add to cart</button>
-                      </div>
-                   </div>
-                   <div class="tp-shop-product-content">
-                      <div class="tp-shop-product-tag">
-                         <span>History</span>
-                      </div>
-                      <h4 class="tp-shop-product-title"><a href="shop-details.html">Under en rosa Himmel</a></h4>
-                      <div class="tp-shop-product-price">
-                         <span>$105.00</span>
-                      </div>
-                   </div>
-                </div>
-             </div>
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-product-item text-center mb-50">
-                   <div class="tp-shop-product-thumb p-relative">
-                      <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-3.jpg" alt=""></a>
-                      <div class="tp-shop-product-thumb-tag">
-                         <span class="off">Hot</span>
-                      </div>
-                      <div class="tp-shop-product-thumb-btn">
-                         <button>Add to cart</button>
-                      </div>
-                   </div>
-                   <div class="tp-shop-product-content">
-                      <div class="tp-shop-product-tag">
-                         <span>Family Story</span>
-                      </div>
-                      <h4 class="tp-shop-product-title"><a href="shop-details.html">Nar Allt Ar Over</a></h4>
-                      <div class="tp-shop-product-price">
-                         <span>$105.00</span>
-                      </div>
-                   </div>
-                </div>
-             </div>
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-product-item text-center mb-50">
-                   <div class="tp-shop-product-thumb p-relative">
-                      <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-4.jpg" alt=""></a>
-                      <div class="tp-shop-product-thumb-tag">
-                         <span class="new">New</span>
-                      </div>
-                      <div class="tp-shop-product-thumb-btn">
-                         <button>Add to cart</button>
-                      </div>
-                   </div>
-                   <div class="tp-shop-product-content">
-                      <div class="tp-shop-product-tag">
-                         <span>Business Of Art</span>
-                      </div>
-                      <h4 class="tp-shop-product-title"><a href="shop-details.html">Lycko Balansen</a></h4>
-                      <div class="tp-shop-product-price">
-                         <span>$105.00</span>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </section>
-    <!-- product details related end -->
+         </div>
+         @endforeach
+      </div>
+   </div>
+</section>
+<!-- product details related end -->
 
  </main>
 

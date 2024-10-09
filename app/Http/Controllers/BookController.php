@@ -8,20 +8,18 @@ use Illuminate\Support\Facades\Http;
 
 class BookController extends Controller
 {
-    /**
-     * Check if the book exists in the local database by its ISBN.
-     * If not, try to fetch the book data from Google Books API.
-     */
+
     public function checkIsbn(Request $request)
     {
         // Validate the input
         $request->validate([
             'isbn' => 'required|string',
+            'condition' => 'required|string',
         ]);
 
         // Retrieve the ISBN from the form input
         $isbn = $request->input('isbn');
-
+        $condition = $request->input('condition');
         // Check if the book exists in the local database
         // $book = Book::where('isbn_10', $isbn)
         //             ->orWhere('isbn_13', $isbn)
@@ -44,10 +42,12 @@ class BookController extends Controller
             // Pass the fetched book data to the createFromApi view for user confirmation
             return view('books.createFromApi', [
                 'isbn' => $isbn,
+                'condition' =>$condition,
                 'bookData' => $bookData
             ]);
         } else {
             // If no book data is found or the API fails, show an error
+
             return redirect()->back()->with('error', 'No book found with this ISBN.');
         }
     }
@@ -111,11 +111,16 @@ $cart[$book->id] = [
     'isbn_10' => $book->isbn_10,
     'isbn_13' => $book->isbn_13,
     'image' => $book->image,
-    'quantity' => 1, // Default quantity for the cart
+    'quantity' => 1,
+    'condition'  =>$request->input('condition'),
+     // Default quantity for the cart
 ];
 session()->put('cart', $cart);
-        // Redirect to the inventory acceptance page
-        return redirect()->route('inventory.acceptBook', ['book' => $book->id]);
+
+return redirect()->route('SellYourBook')
+->with('success', 'Your book was added to the cart successfully!');
+
+
     }
     public function remove(Request $request, $id)
     {

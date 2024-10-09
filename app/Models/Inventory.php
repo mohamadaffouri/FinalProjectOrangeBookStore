@@ -11,8 +11,12 @@ class Inventory extends Model
         'quantity',
         'condition',
         'status',
-        'price',  // New field
+        'price',
+        'verified_condition', // New field
     'cost'
+
+
+
     ];
 
     public function book()

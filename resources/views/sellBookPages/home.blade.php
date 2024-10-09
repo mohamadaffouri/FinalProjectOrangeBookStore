@@ -1,4 +1,4 @@
-@extends('layouts.app1')
+@extends('layouts.appSale')
 
 @section('content')
 <main>
@@ -6,6 +6,11 @@
     <!-- application area start -->
     <section class="tp-shop-banner-ptb p-relative pt-40 pb-140">
        <div class="container">
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
           <div class="row">
              <div class="col-lg-12">
                 <div class="tp-application-heading wow fadeInUp" data-wow-delay=".3s">

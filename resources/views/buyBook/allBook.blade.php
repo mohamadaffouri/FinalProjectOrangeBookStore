@@ -169,7 +169,7 @@
 ">
         <!-- Image container with fixed size and centered image -->
         <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
-            <a href="{{ route('books.show', $inventory->book->id) }}">
+            <a href="{{ route('books.show', $inventory->id) }}">
                 <img src="{{ $inventory->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
             </a>
             <div class="tp-shop-product-thumb-tag">
@@ -185,7 +185,7 @@
                 <span>{{ $inventory->book->author }}</span>
             </div>
             <h4 class="tp-shop-product-title card-title">
-                <a href="{{ route('books.show', $inventory->book->id) }}">{{ $inventory->book->title }}</a>
+                <a href="{{ route('books.show', $inventory->id) }}">{{ $inventory->book->title }}</a>
             </h4>
         </div>
         <!-- Status, Quantity, and Price at the bottom -->
@@ -359,43 +359,66 @@
 
              </div>
           </div>
-          <div class="row">
-             <div class="col-lg-12">
-                <div class="tp-event-inner-pagination pb-120">
-                   <div class="tp-dashboard-pagination pt-20">
-                      <div class="tp-pagination shop">
-                         <nav>
-                            <ul class="justify-content-center">
-                               <li>
-                                  <a href="#"><svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M1.00017 6.77879L14 6.77879" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                     <path d="M6.24316 11.9999L0.999899 6.77922L6.24316 1.55762" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                  </svg></a>
-                               </li>
-                               <li>
-                                  <a href="#">1</a>
-                               </li>
-                               <li>
-                                  <span class="current">2</span>
-                               </li>
-                               <li>
-                                  <a href="#">3</a>
-                               </li>
-                               <li>
-                                  <a href="#" class="next page-numbers">
-                                     <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <div class="row">
+    <div class="col-lg-12">
+        <div class="tp-event-inner-pagination pb-120">
+            <div class="tp-dashboard-pagination pt-20">
+                <div class="tp-pagination shop">
+                    <nav>
+                        <ul class="justify-content-center">
+                            <!-- Previous Page Link -->
+                            @if ($inventoryItems->onFirstPage())
+                                <li class="disabled">
+                                    <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.00017 6.77879L14 6.77879" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M6.24316 11.9999L0.999899 6.77922L6.24316 1.55762" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ $inventoryItems->previousPageUrl() }}">
+                                        <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1.00017 6.77879L14 6.77879" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M6.24316 11.9999L0.999899 6.77922L6.24316 1.55762" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                    </a>
+                                </li>
+                            @endif
+
+                            <!-- Page Number Links -->
+                            @foreach ($inventoryItems->links()->elements[0] as $page => $url)
+                                @if ($inventoryItems->currentPage() == $page)
+                                    <li><span class="current">{{ $page }}</span></li>
+                                @else
+                                    <li><a href="{{ $url }}">{{ $page }}</a></li>
+                                @endif
+                            @endforeach
+
+                            <!-- Next Page Link -->
+                            @if ($inventoryItems->hasMorePages())
+                                <li>
+                                    <a href="{{ $inventoryItems->nextPageUrl() }}">
+                                        <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.9998 6.77883L1 6.77883" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M8.75684 1.55767L14.0001 6.7784L8.75684 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                    </a>
+                                </li>
+                            @else
+                                <li class="disabled">
+                                    <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13.9998 6.77883L1 6.77883" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M8.75684 1.55767L14.0001 6.7784L8.75684 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                     </svg>
-                                  </a>
-                               </li>
-                            </ul>
-                         </nav>
-                      </div>
-                   </div>
+                                    </svg>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
                 </div>
-             </div>
-          </div>
+            </div>
+        </div>
+    </div>
+</div>
        </div>
     </section>
     <!-- shop grid area end -->

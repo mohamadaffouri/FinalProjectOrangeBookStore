@@ -168,7 +168,7 @@
                         <nav class="tp-main-menu-content">
                            <ul>
                               <li class=" tp-static">
-                                 <a class="tp-static" href="{{ route('homePage') }}">Home</a>
+                                 <a class="tp-static" href="{{ route('SellYourBook') }}">Home</a>
                               </li>
                               <li class="has-dropdown">
                                  <a href="about.html">Programs</a>
@@ -205,12 +205,10 @@
                            </button>
                         </div>
                         <div class="tp-header-shop-btn d-none d-lg-block">
-                           <a class="tp-btn-inner" href="{{ route('SellYourBook') }}">Sell your book</a>
+                           <a class="tp-btn-inner" href="{{ route('homePage') }}">Buy our book</a>
                         </div>
                         <div class="tp-header-shop-login tp-header-user-hover">
-                            <button>
-                                <img src="{{ Auth::check() ? (Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('assets/img/event/user.jpg')) : asset('assets/img/event/user.jpg') }}" alt="User Image" class="rounded-circle" width="100">
-                            </button>
+                           <button> <img src="{{ Auth::check() ? (Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('assets/img/event/user.jpg')) : asset('assets/img/event/user.jpg') }}" alt="User Image" class="rounded-circle" width="100"></button>
                            <div class="tp-header-user-box">
                               <div class="tp-header-user-content">
                                  <div class="tp-header-user-profile d-flex align-items-center">

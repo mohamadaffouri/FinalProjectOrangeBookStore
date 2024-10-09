@@ -1,4 +1,4 @@
-@extends('layouts.app1')
+@extends('layouts.appSale')
 
 @section('content')
 <main>
@@ -31,6 +31,7 @@
                                <div class="tp-contact-input schedule p-relative">
                                   <label>ISBN-10</label>
                                   <input type="text" name="isbn_10" value="{{ $isbn }}" readonly>
+                                  <input type="hidden" name="condition" value="{{ $condition }}">
                                </div>
                             </div>
                             <!-- ISBN-13 Input -->
@@ -76,7 +77,7 @@
                            box-shadow: 0px 1px 2px 0px rgba(1, 99, 90, 0.25), 0px 0px 1px 0px #01635A;
                          ">Submit</button>
                     </div>
-                   
+
                    </form>
                 </div>
              </div>

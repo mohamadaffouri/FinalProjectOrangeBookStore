@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> CakeAdmin Bootstrap 5 Demo - Free Admin Template </title>
 
     <!-- Favicon -->
@@ -592,29 +593,21 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a  class="{{ Route::is('manageSellOrders') ? 'active' : '' }}"  href="{{ route('manageSellOrders') }}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-receipt"></i>
+                    </span>
+                    <span>Sell Orders</span>
+                </a>
+            </li>
+            <li>
+                <a  class="{{ Route::is('manageBooks') ? 'active' : '' }}"  href="{{ route('manageBooks') }}">
                     <span class="nav-link-icon">
                         <i class="bi bi-truck"></i>
                     </span>
-                    <span>Products</span>
+                    <span>Books</span>
                 </a>
-                <ul>
-                    <li>
-                        <a  href="./product-list.html">List View</a>
-                    </li>
-                    <li>
-                        <a  href="./product-grid.html">Grid View</a>
-                    </li>
-                    <li>
-                        <a  href="./product-detail.html">Product Detail</a>
-                    </li>
-                    <li>
-                        <a  href="./shopping-cart.html">Shopping Cart</a>
-                    </li>
-                    <li>
-                        <a  href="./checkout.html">Checkout</a>
-                    </li>
-                </ul>
+
             </li>
             <li>
                 <a href="#">
@@ -1005,7 +998,36 @@
 
 </div>
 <!-- ./ layout-wrapper -->
+<script>
+  function submitStatusChange(orderId, selectElement) {
+    var form = document.querySelector(`form[data-order-id='${orderId}']`);
+    var formData = new FormData(form);
 
+    fetch(form.action, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Status updated successfully!');
+            // You can refresh the page or update the UI as needed
+            location.reload();
+        } else {
+            alert('Error updating status.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Something went wrong!');
+    });
+}
+
+</script>
 <!-- JQuery -->
 <script src="{{ asset('libs/jquery-3.7.1.min.js') }}"></script>
 
