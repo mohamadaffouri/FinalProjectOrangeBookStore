@@ -67,52 +67,60 @@
     <table class="table table-custom table-lg mb-0" id="inventory">
         <thead>
         <tr>
-<th>ID</th>
-            <th> Title</th>
-            <th> Condition (User Provided)</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Condition (User Provided)</th>
             <th>Verified Condition</th>
             <th>Status</th>
-            <th class="text-end">Actions</th>
+            <th>Price</th>
+            <th>Discount Price</th>
+
         </tr>
         </thead>
         <tbody>
             @foreach ($inventoryItems as $inventory)
             <tr>
                 <td>{{ $inventory->id }}</td>
-                <td>{{ $inventory->book->title }}</td>
+                <!-- Display only the first 3 words of the book title -->
+                <td>{{ implode(' ', array_slice(explode(' ', $inventory->book->title), 0, 3)) }}</td>
+
                 <td>{{ ucfirst($inventory->condition) }}</td>
+
+                <form action="{{ route('inventory.updateCondition', $inventory->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                <!-- Verified Condition Dropdown -->
                 <td>
-                    <!-- Dropdown to verify condition -->
-                    <form action="{{ route('inventory.updateCondition', $inventory->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <select name="verified_condition" class="form-select form-select-sm" onchange="this.form.submit()">
-                            <option value="new" {{ $inventory->verified_condition == 'new' ? 'selected' : '' }}>New</option>
-                            <option value="like_new" {{ $inventory->verified_condition == 'like_new' ? 'selected' : '' }}>Like New</option>
-                            <option value="very_good" {{ $inventory->verified_condition == 'very_good' ? 'selected' : '' }}>Very Good</option>
-                            <option value="good" {{ $inventory->verified_condition == 'good' ? 'selected' : '' }}>Good</option>
-                            <option value="acceptable" {{ $inventory->verified_condition == 'acceptable' ? 'selected' : '' }}>Acceptable</option>
-                        </select>
-                    </form>
+                    <select name="verified_condition" class="form-select form-select-sm" onchange="this.form.submit()">
+                        <option value="new" {{ $inventory->verified_condition == 'new' ? 'selected' : '' }}>New</option>
+                        <option value="like_new" {{ $inventory->verified_condition == 'like_new' ? 'selected' : '' }}>Like New</option>
+                        <option value="very_good" {{ $inventory->verified_condition == 'very_good' ? 'selected' : '' }}>Very Good</option>
+                        <option value="good" {{ $inventory->verified_condition == 'good' ? 'selected' : '' }}>Good</option>
+                        <option value="acceptable" {{ $inventory->verified_condition == 'acceptable' ? 'selected' : '' }}>Acceptable</option>
+                    </select>
                 </td>
+
                 <td>{{ ucfirst($inventory->status) }}</td>
-                <td class="text-end">
-                    <div class="d-flex">
-                        <div class="dropdown ms-auto">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="" class="dropdown-item">Show</a>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- Price Input -->
+                <td>
+                    <input type="number" name="price" value="{{ $inventory->price }}" step="0.01" class="form-control form-control-sm" onchange="this.form.submit()">
                 </td>
+
+                <!-- Discount Price Input -->
+                <td>
+                    <input type="number" name="discount_price" value="{{ $inventory->discount_price }}" step="0.01" class="form-control form-control-sm" onchange="this.form.submit()">
+                </td>
+
+
+                </form>
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
+
 
 <!-- Pagination -->
 <div class="mt-4" aria-label="Page navigation example">

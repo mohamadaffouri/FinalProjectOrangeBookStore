@@ -12,6 +12,7 @@ class Inventory extends Model
         'condition',
         'status',
         'price',
+        'discount_price',
         'verified_condition', // New field
     'cost'
 

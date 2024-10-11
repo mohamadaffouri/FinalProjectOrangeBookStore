@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Inventory;
 use App\Models\Order;
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
         $itemsPerPage = $request->input('items_per_page', 10);
 
         // Query orders, optionally filtering by order ID or user name
-        $orders = Order::query();
+        $orders = Order::query() ->where('type', 'sell');
 
         if ($search) {
             $orders->where('id', 'LIKE', "%{$search}%") // Search by order ID
@@ -71,7 +72,8 @@ class OrderController extends Controller
             'user_id' => auth()->id(),  // Assuming user is logged in
             'total_price' => $totalPrice,
             'shipping_cost' => 10.00,  // You can calculate or set this dynamically
-            'status' => 'pending',     // Default status is pending
+            'status' => 'pending',
+            'type' =>'sell'  // Default status is pending
         ]);
 
         // Create the order items in the order_items table
@@ -124,5 +126,66 @@ class OrderController extends Controller
     }
 
     return response()->json(['success' => true]);
+}
+
+
+public function saveAddress(Request $request)
+{
+    // Validate that an address was selected
+    $request->validate([
+        'selected_address' => 'required|exists:addresses,id',
+    ]);
+
+    // Save the selected address ID to the session
+    session()->put('selected_address', $request->input('selected_address'));
+
+    // Redirect to the next step (e.g., payment page)
+    return redirect()->back()->with('success', 'Address selected successfully.');
+
+}
+public function placeOrder(Request $request)
+{
+    // Retrieve cart and address info from session
+    $cartItems = session()->get('buyCart', []);
+
+    $totalPrice = session()->get('totalPrice', 0);
+    $selectedAddressId = session()->get('selected_address');
+
+    // Check if cart is not empty and address is selected
+    if (empty($cartItems) || !$selectedAddressId) {
+        return redirect()->back()->with('error', 'Please select an address and add items to your cart.');
+    }
+
+    // Retrieve the selected address from the database
+    $address = Address::find($selectedAddressId);
+
+    // Create a new order
+    $order = Order::create([
+        'user_id' => auth()->id(),
+        'address_id' => $address->id,
+        'total_price' => $totalPrice,
+        'status' => 'pending',
+        'type' =>'buy'// Set initial order status
+    ]);
+
+    // Loop through the cart items and save them in the order_items table
+    foreach ($cartItems as $item) {
+        OrderItem::create([
+           'order_id' => $order->id,
+                'book_id' => $item['book_id'],
+                'quantity' => $item['quantity'],
+                'condition' => $item['condition'], // Assuming all items are 'new', modify as necessary
+                'price' => $item['price'],
+                'type' => 'sell'
+        ]);
+    }
+
+    // Clear the cart session
+    session()->forget('buyCart');
+    session()->forget('totalQuantity');
+    session()->forget('totalPrice');
+    session()->forget('selected_address');
+    return redirect()->back()->with('success', 'Your order has been placed successfully.');
+
 }
 }

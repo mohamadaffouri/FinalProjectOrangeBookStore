@@ -49,10 +49,15 @@
 
                       <!-- price -->
                       <div class="tp-product-details-price-wrapper mb-20">
-                         <span class="tp-product-details-price new-price">${{ number_format($inventoryItem->price, 2) }}</span>
-                         <span class="tp-product-details-price old-price">$60.00</span>
-                      </div>
-
+                        @if (!is_null($inventoryItem->discount_price))
+                            <!-- Show discount price and original price -->
+                            <span class="tp-product-details-price new-price">${{ number_format($inventoryItem->discount_price, 2) }}</span>
+                            <span class="tp-product-details-price old-price">${{ number_format($inventoryItem->price, 2) }}</span>
+                        @else
+                            <!-- Show only the original price if there's no discount -->
+                            <span class="tp-product-details-price new-price">${{ number_format($inventoryItem->price, 2) }}</span>
+                        @endif
+                    </div>
                       <!-- actions -->
                       <div class="tp-product-details-action-wrapper">
                          <h3 class="tp-product-details-action-title">Quantity</h3>
@@ -64,9 +69,19 @@
                                     <button class="tp-cart-plus">+</button>
                                 </div>
                             </div>
-                            <div class="tp-product-details-add-to-cart mb-15 w-100">
-                               <button class="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
+                             <form action="{{ route('addToCart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="inventory_id" value="{{ $inventoryItem->id }}">
+                         <input type="hidden" name="book_id" value="{{ $inventoryItem->book->id }}">
+                        <input type="hidden" name="title" value="{{ $inventoryItem->book->title }}">
+                        <input type="hidden" name="condition" value="{{ $inventoryItem->condition }}">
+                        <input type="hidden" name="price" value="{{ $inventoryItem->discount_price ?? $inventoryItem->price }}">
+                        <input type="hidden" name="image" value="{{ $inventoryItem->book->image ?? asset('images/default-book-image.jpg') }}">
+                       <div class="tp-product-details-add-to-cart mb-15 w-100">
+                               <button type="submit" class="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
                             </div>
+                    </form>
+
                          </div>
                          <button class="tp-product-details-buy-now-btn w-100">Buy Now</button>
                       </div>

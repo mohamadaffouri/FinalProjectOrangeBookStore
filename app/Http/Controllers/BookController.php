@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Inventory;
 use Illuminate\Support\Facades\Http;
 
 class BookController extends Controller
@@ -139,5 +140,71 @@ return redirect()->route('SellYourBook')
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Item removed from cart successfully!');
     }
+
+
+
+
+    public function buyHomePage()
+{
+
+    $inventoryItems = Inventory::all();
+
+    // If there are inventory items, exclude the book_id of the first item
+    $excludedBookId = $inventoryItems->isNotEmpty() ? $inventoryItems->first()->book_id : null;
+
+    // Fetch 3 new arrival books, excluding the book_id of the first item (if available)
+    $newArrivals = Inventory::when($excludedBookId, function ($query, $excludedBookId) {
+        return $query->where('book_id', '!=', $excludedBookId);
+    })
+    ->where('status', '!=', 'Coming Soon') // Exclude items with status 'Coming Soon'
+    ->orderBy('created_at', 'desc')
+    ->take(4)
+    ->get();
+    $discountedBooks = Inventory::whereNotNull('discount_price') // Fetch items with a discount price
+    // Exclude items with 'Coming Soon' status
+    ->orderBy('created_at', 'desc')
+    ->take(8)
+    ->get();
+
+    // Return the view with the inventory items and new arrivals
+    return view('mainPages.homePage', compact('inventoryItems', 'newArrivals','discountedBooks'));
+}
+
+public function buyCart(Request $request)
+{
+    // Retrieve the current cart from the session (or initialize if not set)
+    $cart = session()->get('buyCart', []);
+    $item = [
+        'id' => $request->input('inventory_id'),
+        'book_id' => $request->input('book_id'),
+        'title' => $request->input('title'),
+        'price' => $request->input('price'),
+       'image' => $request->input('image'),
+       'condition' =>$request->input('condition'),
+        'quantity' => 1
+    ];
+
+
+    if (isset($cart[$item['id']])) {
+        // Item already exists, do nothing or optionally return a message
+        return redirect()->back()->with('error', 'Item is already in your cart!');
+    } else {
+        // Add new item to the cart
+        $cart[$item['id']] = $item;
+        $totalQuantity = 0;
+        $totalPrice = 0;
+
+        foreach ($cart as $cartItem) {
+            $totalQuantity += $cartItem['quantity'];  // Increment total quantity
+            $totalPrice += $cartItem['price'] * $cartItem['quantity'];  // Calculate total price
+        }
+
+        // Store the updated cart back in the session
+        session()->put('buyCart', $cart);
+        session()->put('totalQuantity', $totalQuantity);  // Save total quantity
+        session()->put('totalPrice', $totalPrice);  // Save total price
+        return redirect()->back()->with('success', 'Item added to cart successfully!');
+    }
+}
 }
 

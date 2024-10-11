@@ -24,6 +24,8 @@ Route::post('register', [AuthController::class, 'register'])->name('register');
 // Route to show the login form
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login.form');
 
+
+Route::post('loginCheckOut', [AuthController::class, 'loginCheckOut'])->name('loginCheckOut');
 // Route to handle login form submission
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
@@ -57,10 +59,10 @@ Route::get('/', function () {
     return view('books.checkIsbn'); // Home page redirects to ISBN check
 });
 
-Route::get('/homePage', function () {
-    return view('mainPages.homePage');
-})->name('homePage');
-
+// Route::get('/homePage', function () {
+//     return view('mainPages.homePage');
+// })->name('homePage');
+Route::get('/homePage', [BookController::class, 'buyHomePage'])->name('homePage');
 // Routes for BookController
 Route::post('/books/check-isbn', [BookController::class, 'checkIsbn'])->name('books.checkIsbn');
 Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
@@ -90,13 +92,25 @@ Route::post('/cart/remove/{id}', [BookController::class, 'remove'])->name('cart.
 Route::get('/sellCart', function () {
     return view('sellBookPages.sellCart');
 })->name('sellCart');
+
+Route::get('/buyCart', function () {
+    return view('buyBook.buyCart');
+})->name('buyCart');
 Route::post('/proceed-order', [OrderController::class, 'proceedOrder'])->name('proceed.order');
 Route::get('/manageSellOrders', [OrderController::class, 'index'])->name('manageSellOrders');
 Route::get('/manageSellOrders/{order}', [OrderController::class, 'show'])->name('order.show');
 Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-
+Route::get('/checkOut', function () {
+    return view('buyBook.checkOut');
+})->name('checkOut');
 
 
 //------------Inventory Books---------------
 Route::get('/manageBooks', [InventoryController::class, 'adminManageBook'])->name('manageBooks');
 Route::put('/inventory/updateCondition/{id}', [InventoryController::class, 'updateCondition'])->name('inventory.updateCondition');
+Route::post('/storeAddress', [UserController::class, 'storeAddress'])->name('address.store');
+
+//buy cart
+Route::post('/add-to-cart', [BookController::class, 'buyCart'])->name('addToCart');
+Route::post('/save-address', [OrderController::class, 'saveAddress'])->name('save.address');
+Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeOrder');

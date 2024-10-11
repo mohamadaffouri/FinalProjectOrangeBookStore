@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -95,4 +96,46 @@ public function create()
         $user->delete();
 
         return back()->with('success', 'User deleted successfully!');    }
+
+        public function storeAddress(Request $request)
+        {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'company_name' => 'nullable|string|max:255',
+                'country' => 'required|string|max:100',
+                'address_line1' => 'required|string|max:255',
+                'address_line2' => 'nullable|string|max:255',
+                'city' => 'required|string|max:100',
+                'state' => 'required|string|max:100',
+                'zip_code' => 'required|string|max:20',
+                'phone' => 'required|string|max:20',
+                'email' => 'required|email|max:255',
+                'order_notes' => 'nullable|string|max:1000',
+            ]);
+
+            // Save the validated address details into the addresses table
+            $address = new Address([
+                'user_id' => auth()->id(),
+                'first_name' => $validatedData['first_name'],
+        'last_name' => $validatedData['last_name'], // Associate the address with the authenticated user
+                'address_line1' => $validatedData['address_line1'],
+                'address_line2' => $validatedData['address_line2'],
+                'city' => $validatedData['city'],
+                'state' => $validatedData['state'],
+                'zip_code' => $validatedData['zip_code'],
+                'country' => $validatedData['country'],
+                'phone' => $validatedData['phone'],
+                // Any other fields you want to store for the address
+            ]);
+
+            $address->save();
+
+            // You can handle additional logic here, such as creating an order, sending a confirmation email, etc.
+            // For example, you could store the 'order_notes' in a separate 'orders' table or use the address for shipping purposes.
+
+            // Redirect back to the checkout page or success page with a success message
+            return redirect()->back()->with('success', 'Address saved successfully! Your order will be processed.');
+        }
 }

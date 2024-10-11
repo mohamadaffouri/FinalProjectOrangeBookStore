@@ -167,7 +167,7 @@
                         <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">New Arrival <span><img src="assets/img/shop/shop-shape.svg" alt=""></span></button>
                       </li>
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Featured Products <span><img src="assets/img/shop/shop-shape.svg" alt=""></span></button>
+                        <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Sales Books  <span><img src="assets/img/shop/shop-shape.svg" alt=""></span></button>
                       </li>
                       <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Best Seller</button>
@@ -180,275 +180,91 @@
           <div class="tab-content" id="pills-tabContent">
              <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="row">
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-3.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="off">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Family Story</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Nar Allt Ar Over</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-4.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="new">New</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Business Of Art</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Lycko Balansen</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-1.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="hot">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Family Story</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Nar Allt Ar Over</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-2.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="off">35% off</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>History</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Under en rosa Himmel</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
+        @foreach ($newArrivals as $inventoryItem)
+         <div class="col-lg-3 col-sm-6">
+            <div class="tp-shop-product-item text-center mb-50 fixed-card-size d-flex flex-column" style="height: 100%; justify-content: space-between;     background-color: #f9f9f5;
+            ">
+                    <!-- Image container with fixed size and centered image -->
+                    <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
+                        <a href="{{ route('books.show', $inventoryItem->id) }}">
+                            <img src="{{ $inventoryItem->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
+                        </a>
+                        <div class="tp-shop-product-thumb-tag">
+                            <span class="{{ $inventoryItem->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($inventoryItem->condition) }}</span>
+                        </div>
+                        <div class="tp-shop-product-thumb-btn">
+                            <button class="btn btn-primary">Add to cart</button>
+                        </div>
+                    </div>
+                    <!-- Inventory content -->
+                    <div class="tp-shop-product-content card-content d-flex flex-column" style="flex-grow: 1;">
+                        <div class="tp-shop-product-tag">
+                            <span>{{ $inventoryItem->book->author }}</span>
+                        </div>
+                        <h4 class="tp-shop-product-title card-title">
+                            <a href="{{ route('books.show', $inventoryItem->id) }}">{{ $inventoryItem->book->title }}</a>
+                        </h4>
+                    </div>
+                    <!-- Status, Quantity, and Price at the bottom -->
+                    <div class="tp-shop-product-bottom mt-auto" style="text-align: center; padding-bottom: 10px;">
+                        <div class="tp-shop-product-price card-price">
+                            <span>Quantity: {{ $inventoryItem->quantity }}</span>
+                        </div>
+                        <div class="tp-shop-product-status card-status">
+                            <span>Status: {{ ucfirst($inventoryItem->status) }}</span>
+                        </div>
+                        <div class="tp-shop-product-price" style="padding-top: 10px;">
+                             <span>${{ number_format($inventoryItem->price, 2) }}</span>
+                        </div>
+                    </div>
                 </div>
+         </div>
+         @endforeach
+      </div>
              </div>
              <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div class="row">
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-1.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="hot">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Family Story</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Nar Allt Ar Over</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-2.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="off">35% off</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>History</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Under en rosa Himmel</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-3.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="off">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Family Story</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Nar Allt Ar Over</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-4.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="new">New</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Business Of Art</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Lycko Balansen</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-5.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="off">35% off</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Business Of Art</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Camilla Sten</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-6.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="hot">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>History</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">I Alla Vara Dagar</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-7.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="new">New</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>History</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Michael Connelly</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-8.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="hot">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Romance</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Miss Night</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
+                 <div class="row">
+        @foreach ($discountedBooks as $discountedBook)
+         <div class="col-lg-3 col-sm-6 mb-60">
+            <div class="tp-shop-product-item text-center mb-50 fixed-card-size d-flex flex-column" style="height: 100%; justify-content: space-between;     background-color: #f9f9f5;
+            ">
+                    <!-- Image container with fixed size and centered image -->
+                    <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
+                        <a href="{{ route('books.show', $discountedBook->id) }}">
+                            <img src="{{ $discountedBook->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
+                        </a>
+                        <div class="tp-shop-product-thumb-tag">
+                            <span class="{{ $discountedBook->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($discountedBook->condition) }}</span>
+                        </div>
+                        <div class="tp-shop-product-thumb-btn">
+                            <button class="btn btn-primary">Add to cart</button>
+                        </div>
+                    </div>
+                    <!-- Inventory content -->
+                    <div class="tp-shop-product-content card-content d-flex flex-column" style="flex-grow: 1;">
+                        <div class="tp-shop-product-tag">
+                            <span>{{ $discountedBook->book->author }}</span>
+                        </div>
+                        <h4 class="tp-shop-product-title card-title">
+                            <a href="{{ route('books.show', $discountedBook->id) }}">{{ $discountedBook->book->title }}</a>
+                        </h4>
+                    </div>
+                    <!-- Status, Quantity, and Price at the bottom -->
+                    <div class="tp-shop-product-bottom mt-auto" style="text-align: center; padding-bottom: 10px;">
+                        <div class="tp-shop-product-price card-price">
+                            <span>Quantity: {{ $discountedBook->quantity }}</span>
+                        </div>
+                        <div class="tp-shop-product-status card-status">
+                            <span>Status: {{ ucfirst($discountedBook->status) }}</span>
+                        </div>
+                        <div class="tp-shop-product-price" style="padding-top: 10px;">
+                             <span>${{ number_format($discountedBook->price, 2) }}</span>
+                        </div>
+                    </div>
                 </div>
+         </div>
+         @endforeach
+      </div>
              </div>
              <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                 <div class="row">
@@ -576,73 +392,7 @@
     <!-- cta area end -->
 
 
-    <!-- author area start -->
-    <section class="tp-shop-author-area pb-90">
-       <div class="container">
-          <div class="row">
-             <div class="col-lg-12">
-                <div class="tp-shop-author-wrap d-flex flex-wrap justify-content-between align-items-center mb-50">
-                   <div class="tp-shop-author-heading">
-                      <h4 class="tp-shop-author-title">Top Author</h4>
-                      <p>Unravel secrets with author’s brilliant plot twists.</p>
-                   </div>
-                   <div class="tp-shop-author-btn">
-                      <a href="instructor.html">All Authors <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                         <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                       </svg></span></a>
-                   </div>
-                </div>
-             </div>
-          </div>
-          <div class="row">
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-author-item text-center mb-30">
-                   <div class="tp-shop-author-thumb">
-                      <img src="assets/img/shop/author/shop-author-1.png" alt="">
-                   </div>
-                   <div class="tp-shop-author-content">
-                      <span>1,65 Books</span>
-                      <h4 class="tp-shop-author-item-title"><a href="my-profile.html">Leslie Alexander</a></h4>
-                   </div>
-                </div>
-             </div>
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-author-item text-center mb-30">
-                   <div class="tp-shop-author-thumb">
-                      <img src="assets/img/shop/author/shop-author-2.png" alt="">
-                   </div>
-                   <div class="tp-shop-author-content">
-                      <span>1,65 Books</span>
-                      <h4 class="tp-shop-author-item-title"><a href="my-profile.html">Robert Fox</a></h4>
-                   </div>
-                </div>
-             </div>
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-author-item text-center mb-30">
-                   <div class="tp-shop-author-thumb">
-                      <img src="assets/img/shop/author/shop-author-3.png" alt="">
-                   </div>
-                   <div class="tp-shop-author-content">
-                      <span>1,65 Books</span>
-                      <h4 class="tp-shop-author-item-title"><a href="my-profile.html">Darrell Steward</a></h4>
-                   </div>
-                </div>
-             </div>
-             <div class="col-lg-3 col-sm-6">
-                <div class="tp-shop-author-item text-center mb-30">
-                   <div class="tp-shop-author-thumb">
-                      <img src="assets/img/shop/author/shop-author-4.png" alt="">
-                   </div>
-                   <div class="tp-shop-author-content">
-                      <span>1,65 Books</span>
-                      <h4 class="tp-shop-author-item-title"><a href="my-profile.html">Dianne Russell</a></h4>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </section>
-    <!-- author area end -->
+
 
 
     <!-- shop service area start -->

@@ -31018,3 +31018,15 @@ span.common-pale-purple {
 .cartmini__remove {
     align-self: center;
 }
+.tp-shop-product-price .new-price {
+    color: #e74c3c; /* Highlight color for discounted price */
+    font-weight: bold; /* Make the discounted price bold */
+    font-size: 18px; /* Adjust the size as needed */
+}
+
+.tp-shop-product-price .old-price {
+    text-decoration: line-through; /* Cross out the old price */
+    color: #999; /* Gray color for the old price */
+    font-size: 16px; /* Slightly smaller size for the old price */
+    margin-left: 10px; /* Add some spacing between the two prices */
+}

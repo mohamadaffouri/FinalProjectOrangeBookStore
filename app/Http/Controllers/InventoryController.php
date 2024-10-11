@@ -127,11 +127,17 @@ public function updateCondition(Request $request, $id)
     // Validate input
     $request->validate([
         'verified_condition' => 'required|string',
+        'price' => 'required|numeric|min:0',
+        'discount_price' => 'nullable|numeric|min:0',
     ]);
 
-    // Find inventory item and update condition and status
+
     $inventory = Inventory::findOrFail($id);
     $verifiedCondition = $request->input('verified_condition');
+
+
+    $price = $request->input('price');
+    $discount_price = $request->input('discount_price');
 
     // Compare user-provided condition and verified condition
     $status = $inventory->condition == $verifiedCondition ? 'available' : 'coming soon';
@@ -139,6 +145,8 @@ public function updateCondition(Request $request, $id)
     // Update the condition and status
     $inventory->update([
         'verified_condition' => $verifiedCondition,
+        'price' => $price,
+        'discount_price' => $discount_price,
         'status' => $status,
     ]);
 

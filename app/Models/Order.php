@@ -11,7 +11,8 @@ class Order extends Model
         'total_price',
         'shipping_cost',
         'status',
-         'type'
+         'type',
+         'address_id'
     ];
 
     public function user()
@@ -26,7 +27,7 @@ class Order extends Model
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Address::class);
     }
 
     public function payment()

@@ -61,6 +61,22 @@ class AuthController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+    public function loginCheckOut(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $request->session()->regenerate();
+            return back(); // Redirect to home page after login
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
 
     // Handle the logout process
     public function logout(Request $request)

@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $fillable = [
+        'first_name',
+        'last_name',
         'user_id',
-        'order_id',
+
         'address_line1',
         'address_line2',
         'city',
         'state',
         'zip_code',
+        'phone',
         'country',
     ];
 
@@ -22,8 +25,8 @@ class Address extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function order()
+    public function orders()
     {
-        return $this->belongsTo(Order::class);
+        return $this->hasMany(Order::class);
     }
 }

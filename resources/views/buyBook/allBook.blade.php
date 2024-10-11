@@ -197,8 +197,15 @@
                 <span>Status: {{ ucfirst($inventory->status) }}</span>
             </div>
             <div class="tp-shop-product-price" style="padding-top: 10px;">
-                 <span>${{ number_format($inventory->price, 2) }}</span>
-            </div>
+    @if (!is_null($inventory->discount_price))
+        <!-- Discounted price and original price -->
+        <span class="new-price" style="color: #e74c3c; font-weight: bold;">${{ number_format($inventory->discount_price, 2) }}</span>
+        <span class="old-price" style="text-decoration: line-through; color: #999; margin-left: 10px;">${{ number_format($inventory->price, 2) }}</span>
+    @else
+        <!-- Show only the original price -->
+        <span class="new-price">${{ number_format($inventory->price, 2) }}</span>
+    @endif
+</div>
         </div>
     </div>
 </div>

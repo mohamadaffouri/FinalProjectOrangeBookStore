@@ -80,7 +80,9 @@
                   <div class="cartmini__widget-item">
 
                      @php
-    $cartItems = session()->get('cart', []); // Retrieve cart items from session
+    $cartItems = session()->get('buyCart', []);
+    $totalQuantity = session()->get('totalQuantity', 0);
+        $totalPrice = session()->get('totalPrice', 0);// Retrieve cart items from session
 @endphp
 
 @if (count($cartItems) > 0)
@@ -134,10 +136,10 @@
             <div class="cartmini__checkout">
                <div class="cartmini__checkout-title mb-30">
                   <h4>Subtotal:</h4>
-                  <span>$113.00</span>
+                  <span>${{ $totalPrice }}</span>
                </div>
                <div class="cartmini__checkout-btn home-shop">
-                <a href="{{ route('sellCart') }}" class="tp-btn mb-10 w-100">View Cart</a>
+                <a href="{{ route('buyCart') }}" class="tp-btn mb-10 w-100">View Cart</a>
                   <a href="checkout.html" class="tp-btn tp-btn-border w-100"> checkout</a>
                </div>
             </div>
@@ -201,7 +203,7 @@
                                     <path d="M12.9257 10.1017H12.9715" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                  </svg>
                               </span>
-                              <i>1</i>
+                              <i>{{ $totalQuantity }}</i>
                            </button>
                         </div>
                         <div class="tp-header-shop-btn d-none d-lg-block">
