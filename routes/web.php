@@ -101,10 +101,16 @@ Route::get('/manageSellOrders', [OrderController::class, 'index'])->name('manage
 Route::get('/manageBuyOrders', [OrderController::class, 'indexBuy'])->name('manageBuyOrders');
 Route::get('/manageSellOrders/{order}', [OrderController::class, 'show'])->name('order.show');
 Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+Route::put('/buyOrders/{id}/status', [OrderController::class, 'updateStatusBuyOrders'])->name('buyOrders.updateStatus');
 Route::get('/checkOut', function () {
     return view('buyBook.checkOut');
 })->name('checkOut');
-
+// Route::get('/Log', function () {
+//     return view('mainPages.login');
+// })->name('log');
+// Route::get('/reg', function () {
+//     return view('mainPages.reg');
+// })->name('reg');
 
 //------------Inventory Books---------------
 Route::get('/manageBooks', [InventoryController::class, 'adminManageBook'])->name('manageBooks');

@@ -143,7 +143,8 @@ class OrderController extends Controller
     $order->save();
 
     // If the status is 'completed', add all items to inventory
-    if ($validatedData['status'] === 'completed') {
+
+    if ($validatedData['status'] === 'completed' && $order->type == 'sell') {
         foreach ($order->orderItems as $item) {
             // Add each order item to the inventory
             Inventory::create([
@@ -160,6 +161,30 @@ class OrderController extends Controller
 
     return response()->json(['success' => true]);
 }
+public function updateStatusBuyOrders(Request $request, $id)
+{
+    try {
+        // Validate the request
+        $validatedData = $request->validate([
+            'status' => 'required|in:pending,shipped,completed,refunded,canceled',
+        ]);
+
+        // Find the order
+        $order = Order::findOrFail($id);
+
+        // Update the order status
+        $order->status = $validatedData['status'];
+        $order->save();
+
+        // Return success response
+        return response()->json(['success' => true, 'message' => 'Order status updated successfully.']);
+
+    } catch (\Exception $e) {
+        // Catch any exception and return a JSON error response
+        return response()->json(['success' => false, 'message' => 'Error updating order status: ' . $e->getMessage()], 500);
+    }
+}
+
 
 
 public function saveAddress(Request $request)

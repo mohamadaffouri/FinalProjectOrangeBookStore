@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function showRegisterForm()
     {
-        return view('adminDashboard.register');
+        return view('mainPages.reg');
     }
 
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
     // Show the login form
     public function showLoginForm()
     {
-        return view('adminDashboard.login');
+        return view('mainPages.login');
     }
 
     // Handle the login process
@@ -54,7 +54,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return redirect()->route('index'); // Redirect to home page after login
+            if (auth()->user()->role->name === 'Admin') {
+                return redirect()->route('index'); // Redirect to admin dashboard
+            } elseif (auth()->user()->role->name === 'User') {
+                return redirect()->route('homePage'); // Redirect to user dashboard
+            } else {
+                return redirect()->route('homePage'); // Default redirect if no specific role
+            }
         }
 
         return back()->withErrors([

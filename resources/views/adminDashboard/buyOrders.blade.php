@@ -94,10 +94,11 @@
                 <td>${{ number_format($order->total_price, 2) }}</td>
                 <td>
                     <!-- Dropdown to change order status -->
-                    <form action="{{ route('orders.updateStatus', $order->id) }}" method="POST" class="status-form" data-order-id="{{ $order->id }}">
+                    <form id="buy-orders-form-{{ $order->id }}" action="{{ route('buyOrders.updateStatus', $order->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <select name="status" class="form-select form-select-sm" onchange="submitStatusChange({{ $order->id }}, this)">
+
+                        <select name="status" onchange="submitBuyOrderStatusChange({{ $order->id }})">
                             <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped</option>
                             <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>

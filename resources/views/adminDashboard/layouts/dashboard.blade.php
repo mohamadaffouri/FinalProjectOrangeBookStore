@@ -1007,6 +1007,7 @@
 </div>
 <!-- ./ layout-wrapper -->
 <script>
+
   function submitStatusChange(orderId, selectElement) {
     var form = document.querySelector(`form[data-order-id='${orderId}']`);
     var formData = new FormData(form);
@@ -1035,6 +1036,34 @@
     });
 }
 
+</script>
+<script>
+  function submitBuyOrderStatusChange(orderId) {
+    var form = document.getElementById(`buy-orders-form-${orderId}`);
+    var formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'PUT',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Buy order status updated successfully!');
+            location.reload();
+        } else {
+            alert('Error updating buy order status.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Something went wrong while updating buy order status.');
+    });
+  }
 </script>
 <!-- JQuery -->
 <script src="{{ asset('libs/jquery-3.7.1.min.js') }}"></script>
