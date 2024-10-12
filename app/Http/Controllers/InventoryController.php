@@ -7,10 +7,9 @@ use App\Models\Book;
 use App\Models\Inventory;
 
 
-
-
 class InventoryController extends Controller
 {
+
     public function index()
     {
         // Fetch all inventory items

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+    // This for Sell Orders in dashboard admin
     public function index(Request $request)
     {
         // Get the search query
@@ -21,6 +23,37 @@ class OrderController extends Controller
 
         // Query orders, optionally filtering by order ID or user name
         $orders = Order::query() ->where('type', 'sell');
+
+        if ($search) {
+            $orders->where('id', 'LIKE', "%{$search}%") // Search by order ID
+                   ->orWhereHas('user', function ($query) use ($search) {
+                       $query->where('name', 'LIKE', "%{$search}%"); // Search by user name
+                   });
+        }
+        $status = $request->input('status');
+        if ($status) {
+            $orders->where('status', $status); // Filter by status
+        }
+
+        // Paginate the orders
+        $orders = $orders->paginate($itemsPerPage);
+
+
+
+
+        return view('adminDashboard.sellOrders', compact('orders'));
+    }
+    // this for orders buy in dashboard
+    public function indexBuy(Request $request)
+    {
+        // Get the search query
+        $search = $request->input('search');
+
+        // Get the number of items per page, default to 10 if not set
+        $itemsPerPage = $request->input('items_per_page', 10);
+
+        // Query orders, optionally filtering by order ID or user name
+        $orders = Order::query() ->where('type', 'buy');
 
         if ($search) {
             $orders->where('id', 'LIKE', "%{$search}%") // Search by order ID
@@ -171,13 +204,19 @@ public function placeOrder(Request $request)
     // Loop through the cart items and save them in the order_items table
     foreach ($cartItems as $item) {
         OrderItem::create([
-           'order_id' => $order->id,
-                'book_id' => $item['book_id'],
-                'quantity' => $item['quantity'],
-                'condition' => $item['condition'], // Assuming all items are 'new', modify as necessary
-                'price' => $item['price'],
-                'type' => 'sell'
+            'order_id' => $order->id,
+            'book_id' => $item['book_id'],
+            'quantity' => $item['quantity'],
+            'condition' => $item['condition'],
+            'price' => $item['price'],
+
         ]);
+
+        // Find the inventory item and soft delete it
+        $inventoryItem = Inventory::find($item['id']); // Assuming 'id' is the inventory ID in the cart
+        if ($inventoryItem) {
+            $inventoryItem->delete(); // This will soft delete the item
+        }
     }
 
     // Clear the cart session

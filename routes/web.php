@@ -98,6 +98,7 @@ Route::get('/buyCart', function () {
 })->name('buyCart');
 Route::post('/proceed-order', [OrderController::class, 'proceedOrder'])->name('proceed.order');
 Route::get('/manageSellOrders', [OrderController::class, 'index'])->name('manageSellOrders');
+Route::get('/manageBuyOrders', [OrderController::class, 'indexBuy'])->name('manageBuyOrders');
 Route::get('/manageSellOrders/{order}', [OrderController::class, 'show'])->name('order.show');
 Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 Route::get('/checkOut', function () {

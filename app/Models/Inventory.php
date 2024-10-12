@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
-{protected $table = 'inventory';
+{
+    use SoftDeletes;
+    protected $table = 'inventory';
     protected $fillable = [
         'book_id',
         'quantity',
@@ -19,6 +21,7 @@ class Inventory extends Model
 
 
     ];
+    protected $dates = ['deleted_at'];
 
     public function book()
     {

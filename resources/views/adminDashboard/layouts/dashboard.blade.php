@@ -600,6 +600,14 @@
                     <span>Sell Orders</span>
                 </a>
             </li>
+             <li>
+                <a  class="{{ Route::is('manageBuyOrders') ? 'active' : '' }}"  href="{{ route('manageBuyOrders') }}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-receipt"></i>
+                    </span>
+                    <span>Buy Orders</span>
+                </a>
+            </li>
             <li>
                 <a  class="{{ Route::is('manageBooks') ? 'active' : '' }}"  href="{{ route('manageBooks') }}">
                     <span class="nav-link-icon">
