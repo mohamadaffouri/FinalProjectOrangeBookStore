@@ -33,14 +33,16 @@
                          </div>
                          <div class="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
                             <div class="tp-product-details-rating">
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
+                                @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $averageRating)
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                @else
+                                    <span><i class="fa-solid fa-star" style="color: #ccc;"></i></span>
+                                @endif
+                            @endfor
                             </div>
                             <div class="tp-product-details-reviews">
-                               <span>(36 Reviews)</span>
+                               <span>({{ $totalReviews }}  Reviews)</span>
                             </div>
                          </div>
                       </div>

@@ -176,7 +176,18 @@
                 <span class="{{ $inventory->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($inventory->condition) }}</span>
             </div>
             <div class="tp-shop-product-thumb-btn">
-                <button class="btn btn-primary">Add to cart</button>
+               <form action="{{ route('addToCart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="inventory_id" value="{{ $inventory->id }}">
+                         <input type="hidden" name="book_id" value="{{ $inventory->book->id }}">
+                        <input type="hidden" name="title" value="{{ $inventory->book->title }}">
+                        <input type="hidden" name="condition" value="{{ $inventory->condition }}">
+                        <input type="hidden" name="price" value="{{ $inventory->discount_price ?? $inventory->price }}">
+                        <input type="hidden" name="image" value="{{ $inventory->book->image ?? asset('images/default-book-image.jpg') }}">
+                       <button type="submit" class="btn btn-primary">Add to cart</button>
+
+
+                    </form>
             </div>
         </div>
         <!-- Inventory content -->

@@ -229,8 +229,14 @@
                                         @if(Auth::check())
                                         <li><a href="instructor-dashboard.html">My Dashboard</a></li>
                                        <li><a href="instructor-profile.html">My Profile</a></li>
-                                       <li><a href="login.html">Logout</a></li>
-                                    @else
+                                       <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                Logout
+                                            </a>
+                                        </form>
+                                    </li>                                    @else
                                     <li><a href="login.html">Login</a></li>
                                     @endif
 

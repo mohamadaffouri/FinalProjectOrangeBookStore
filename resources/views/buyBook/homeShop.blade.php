@@ -187,7 +187,18 @@
                                <span class="off">Hot</span>
                             </div>
                             <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
+                               <form action="{{ route('addToCart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="inventory_id" value="{{ $inventoryItem->id }}">
+                         <input type="hidden" name="book_id" value="{{ $inventoryItem->book->id }}">
+                        <input type="hidden" name="title" value="{{ $inventoryItem->book->title }}">
+                        <input type="hidden" name="condition" value="{{ $inventoryItem->condition }}">
+                        <input type="hidden" name="price" value="{{ $inventoryItem->discount_price ?? $inventoryItem->price }}">
+                        <input type="hidden" name="image" value="{{ $inventoryItem->book->image ?? asset('images/default-book-image.jpg') }}">
+                       <div class="tp-product-details-add-to-cart mb-15 w-100">
+                               <button type="submit" class="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
+                            </div>
+                    </form>
                             </div>
                          </div>
                          <div class="tp-shop-product-content">
@@ -209,7 +220,18 @@
                                <span class="new">New</span>
                             </div>
                             <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
+                               <form action="{{ route('addToCart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="inventory_id" value="{{ $inventoryItem->id }}">
+                         <input type="hidden" name="book_id" value="{{ $inventoryItem->book->id }}">
+                        <input type="hidden" name="title" value="{{ $inventoryItem->book->title }}">
+                        <input type="hidden" name="condition" value="{{ $inventoryItem->condition }}">
+                        <input type="hidden" name="price" value="{{ $inventoryItem->discount_price ?? $inventoryItem->price }}">
+                        <input type="hidden" name="image" value="{{ $inventoryItem->book->image ?? asset('images/default-book-image.jpg') }}">
+                       <div class="tp-product-details-add-to-cart mb-15 w-100">
+                               <button type="submit" class="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
+                            </div>
+                    </form>
                             </div>
                          </div>
                          <div class="tp-shop-product-content">

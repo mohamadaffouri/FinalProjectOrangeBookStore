@@ -23,7 +23,7 @@
                                <span>Sale Up To 25% Off</span>
                                <h3 class="tp-shop-banner-title">Unleash your Imagination with Books</h3>
                                <div class="tp-shop-banner-btn">
-                                  <a href="shop-grid.html">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <a href="{{ route('books.index') }}">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                      <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                    </svg></span></a>
                                </div>
@@ -45,7 +45,7 @@
                                <span>Sale Up To 25% Off</span>
                                <h3 class="tp-shop-banner-title">50% off hundreds of Books</h3>
                                <div class="tp-shop-banner-btn">
-                                  <a href="shop-grid.html">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <a href="{{ route('books.index') }}">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                      <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                    </svg></span></a>
                                </div>
@@ -67,7 +67,7 @@
                                <span>Sale Up To 25% Off</span>
                                <h3 class="tp-shop-banner-title">Meet Your Next Favorite Book.</h3>
                                <div class="tp-shop-banner-btn">
-                                  <a href="shop-grid.html">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <a href="{{ route('books.index') }}">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                      <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                    </svg></span></a>
                                </div>
@@ -104,7 +104,7 @@
                       <h4>Huge Sale! <br> Don't miss Out</h4>
                    </div>
                    <div class="tp-shop-feature-btn">
-                      <a href="shop-grid.html">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <a href="{{ route('books.index') }}">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                        </svg></span></a>
                    </div>
@@ -118,7 +118,7 @@
                       <h4>Summer <br> Sale bozana</h4>
                    </div>
                    <div class="tp-shop-feature-btn">
-                      <a href="shop-grid.html">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <a href="{{ route('books.index') }}l">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                        </svg></span></a>
                    </div>
@@ -130,7 +130,7 @@
                       <h4>Summer <br> Sale bozana</h4>
                    </div>
                    <div class="tp-shop-feature-btn">
-                      <a href="shop-grid.html">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <a href="{{ route('books.index') }}">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                        </svg></span></a>
                    </div>
@@ -144,7 +144,7 @@
                       <h4>Summer <br> Sale bozana</h4>
                    </div>
                    <div class="tp-shop-feature-btn">
-                      <a href="shop-grid.html">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <a href="{{ route('books.index') }}">Shop Now <span><svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                          <path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                        </svg></span></a>
                    </div>
@@ -193,8 +193,19 @@
                             <span class="{{ $inventoryItem->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($inventoryItem->condition) }}</span>
                         </div>
                         <div class="tp-shop-product-thumb-btn">
-                            <button class="btn btn-primary">Add to cart</button>
-                        </div>
+               <form action="{{ route('addToCart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="inventory_id" value="{{ $inventoryItem->id }}">
+                         <input type="hidden" name="book_id" value="{{ $inventoryItem->book->id }}">
+                        <input type="hidden" name="title" value="{{ $inventoryItem->book->title }}">
+                        <input type="hidden" name="condition" value="{{ $inventoryItem->condition }}">
+                        <input type="hidden" name="price" value="{{ $inventoryItem->discount_price ?? $inventoryItem->price }}">
+                        <input type="hidden" name="image" value="{{ $inventoryItem->book->image ?? asset('images/default-book-image.jpg') }}">
+                       <button type="submit" class="btn btn-primary">Add to cart</button>
+
+
+                    </form>
+            </div>
                     </div>
                     <!-- Inventory content -->
                     <div class="tp-shop-product-content card-content d-flex flex-column" style="flex-grow: 1;">
@@ -236,9 +247,20 @@
                         <div class="tp-shop-product-thumb-tag">
                             <span class="{{ $discountedBook->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($discountedBook->condition) }}</span>
                         </div>
-                        <div class="tp-shop-product-thumb-btn">
-                            <button class="btn btn-primary">Add to cart</button>
-                        </div>
+                          <div class="tp-shop-product-thumb-btn">
+               <form action="{{ route('addToCart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="inventory_id" value="{{ $discountedBook->id }}">
+                         <input type="hidden" name="book_id" value="{{ $discountedBook->book->id }}">
+                        <input type="hidden" name="title" value="{{ $discountedBook->book->title }}">
+                        <input type="hidden" name="condition" value="{{ $discountedBook->condition }}">
+                        <input type="hidden" name="price" value="{{ $discountedBook->discount_price ?? $discountedBook->price }}">
+                        <input type="hidden" name="image" value="{{ $discountedBook->book->image ?? asset('images/default-book-image.jpg') }}">
+                       <button type="submit" class="btn btn-primary">Add to cart</button>
+
+
+                    </form>
+            </div>
                     </div>
                     <!-- Inventory content -->
                     <div class="tp-shop-product-content card-content d-flex flex-column" style="flex-grow: 1;">
