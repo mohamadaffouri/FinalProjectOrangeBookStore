@@ -70,12 +70,12 @@
                      <h4>Shopping cart</h4>
                   </div>
                </div>
-               <div class="cartmini__shipping home-shop">
+               {{-- <div class="cartmini__shipping home-shop">
                   <p> Free Shipping for all orders over <span>$50</span></p>
                   <div class="progress">
                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" data-width="70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-               </div>
+               </div> --}}
                <div class="cartmini__widget">
                   <div class="cartmini__widget-item">
 

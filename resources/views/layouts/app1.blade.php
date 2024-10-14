@@ -70,12 +70,12 @@
                      <h4>Shopping cart</h4>
                   </div>
                </div>
-               <div class="cartmini__shipping home-shop">
+               {{-- <div class="cartmini__shipping home-shop">
                   <p> Free Shipping for all orders over <span>$50</span></p>
                   <div class="progress">
                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" data-width="70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-               </div>
+               </div> --}}
                <div class="cartmini__widget">
                   <div class="cartmini__widget-item">
 
@@ -111,7 +111,7 @@
 
                 <!-- Remove Button (Optional) -->
                 <div class="cartmini__remove ms-auto">
-                    <form action="{{ route('cart.remove', $item['id']) }}" method="POST">
+                    <form action="{{ route('buyCart.remove', $item['id']) }}" method="POST">
                         @csrf <!-- Important for Laravel CSRF protection -->
                         <button type="submit" class="btn btn-danger">Remove</button>
                     </form>
@@ -140,7 +140,7 @@
                </div>
                <div class="cartmini__checkout-btn home-shop">
                 <a href="{{ route('buyCart') }}" class="tp-btn mb-10 w-100">View Cart</a>
-                  <a href="checkout.html" class="tp-btn tp-btn-border w-100"> checkout</a>
+                  <a href="{{ route('checkOut') }}" class="tp-btn tp-btn-border w-100"> checkout</a>
                </div>
             </div>
          </div>

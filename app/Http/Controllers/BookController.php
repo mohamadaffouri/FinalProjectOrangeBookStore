@@ -140,6 +140,35 @@ return redirect()->route('SellYourBook')
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Item removed from cart successfully!');
     }
+    public function removeBuyCart(Request $request, $id)
+    {
+        // Get the current cart from the session
+        $cart = session()->get('buyCart', []);
+
+        // Check if the item exists in the cart
+        if(isset($cart[$id])) {
+            // Remove the item from the cart
+            unset($cart[$id]);
+            $totalQuantity = 0;
+            $totalPrice = 0;
+
+            foreach ($cart as $cartItem) {
+                $totalQuantity += $cartItem['quantity'];  // Increment total quantity
+                $totalPrice += $cartItem['price'] * $cartItem['quantity'];  // Calculate total price
+            }
+            // Update the session with the modified cart
+            session()->put('buyCart', $cart);
+            session()->put('totalQuantity', $totalQuantity);  // Save total quantity
+            session()->put('totalPrice', $totalPrice);
+        }
+
+            // Store the updated cart back in the session
+
+
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Item removed from cart successfully!');
+    }
 
 
 

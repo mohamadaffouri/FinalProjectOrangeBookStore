@@ -68,7 +68,7 @@
                          <tr>
                             <th colspan="2" class="tp-cart-header-product">Product</th>
                             <th class="tp-cart-header-price">Price</th>
-                            <th class="tp-cart-header-quantity">Quantity</th>
+
                             <th></th>
                          </tr>
                       </thead>
@@ -84,25 +84,10 @@
                                 <td class="tp-cart-price"><span>$100 </span></td>
                                 {{-- {{ number_format($details['price'], 2) }} --}}
                                 <!-- quantity -->
-                                <td class="tp-cart-quantity">
-                                   <div class="tp-product-quantity cart mt-10 mb-10">
-                                      <span class="tp-cart-minus">
-                                         <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1 1H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                         </svg>
-                                      </span>
-                                      <input class="tp-cart-input" type="text" value="{{ $details['quantity'] }}" readonly>
-                                      <span class="tp-cart-plus">
-                                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M5 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M1 5H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                         </svg>
-                                      </span>
-                                   </div>
-                                </td>
+
                                 <!-- action -->
                                 <td class="tp-cart-action">
-                                   <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                   <form action="{{ route('buyCart.remove', $id) }}" method="POST">
                                        @csrf
                                        <button type="submit" class="tp-cart-action-btn">
                                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

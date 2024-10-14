@@ -89,6 +89,7 @@ use App\Http\Controllers\ReviewController;
 
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 Route::post('/cart/remove/{id}', [BookController::class, 'remove'])->name('cart.remove');
+Route::post('/buyCart/remove/{id}', [BookController::class, 'removeBuyCart'])->name('buyCart.remove');
 Route::get('/sellCart', function () {
     return view('sellBookPages.sellCart');
 })->name('sellCart');
