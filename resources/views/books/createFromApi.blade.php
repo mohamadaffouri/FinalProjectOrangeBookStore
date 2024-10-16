@@ -19,10 +19,10 @@
                          <h4 class="tp-application-from-title">Book Information</h4>
                          <div class="row">
                             <!-- Image Display (if available) -->
-                            @if(isset($bookData['imageLinks']['thumbnail']))
+                            @if(isset($bookData['Image1']))
                             <div class="col-xl-12 col-lg-12 mb-3 text-center">
-                               <img src="{{ $bookData['imageLinks']['thumbnail'] }}" alt="Book Image" class="img-fluid" style="max-width: 200px;">
-                               <input type="hidden" name="image_url" value="{{ $bookData['imageLinks']['thumbnail'] }}">
+                               <img src="{{ $bookData['Image1'] }}" alt="Book Image" class="img-fluid" style="max-width: 200px;">
+                               <input type="hidden" name="image_url" value="{{ $bookData['Image1'] }}">
                             </div>
                             @endif
 
@@ -32,36 +32,43 @@
                                   <label>ISBN-10</label>
                                   <input type="text" name="isbn_10" value="{{ $isbn }}" readonly>
                                   <input type="hidden" name="condition" value="{{ $condition }}">
+                                  <input type="hidden" name="description" value="{{ $bookData['description'] ?? '' }}">
                                </div>
                             </div>
                             <!-- ISBN-13 Input -->
                             <div class="col-xl-12 col-lg-12">
                                <div class="tp-contact-input schedule p-relative">
                                   <label>ISBN-13</label>
-                                  <input type="text" name="isbn_13" value="{{ $bookData['industryIdentifiers'][1]['identifier'] ?? '' }}" readonly>
+                                  <input type="text" name="isbn_13" value="{{ $bookData['ISBN13'] ?? '' }}" readonly>
                                </div>
                             </div>
                             <!-- Title Input -->
                             <div class="col-xl-12 col-lg-12">
                                <div class="tp-contact-input schedule p-relative">
                                   <label>Title</label>
-                                  <input type="text" name="title" value="{{ $bookData['title'] }}" readonly>
+                                  <input type="text" name="title" value="{{ $bookData['Title'] }}" readonly>
                                </div>
                             </div>
                             <!-- Author Input -->
                             <div class="col-xl-12 col-lg-12">
                                <div class="tp-contact-input schedule p-relative">
                                   <label>Author</label>
-                                  <input type="text" name="author" value="{{ implode(', ', $bookData['authors'] ?? []) }}" readonly>
+                                  <input type="text" name="author" value="{{( $bookData['author']) }}" readonly>
                                </div>
                             </div>
-                            <!-- Edition Input (optional) -->
+                            <div class="col-xl-12 col-lg-12">
+                                <div class="tp-contact-input schedule p-relative">
+                                   <label>Book language </label>
+                                   <input type="text" name="language" value="{{ $bookData['languages'][1][0] ?? '' }}" readonly>
+                                </div>
+                             </div>
                             <div class="col-xl-12 col-lg-12">
                                <div class="tp-contact-input schedule p-relative">
-                                  <label>Edition (optional)</label>
-                                  <input type="text" name="edition" value="{{ $bookData['publishedDate'] ?? '' }}" readonly>
+                                  <label>Offer Price </label>
+                                  <input type="text" name="price" value="{{ $bookData['Price'] ?? '' }}" readonly>
                                </div>
                             </div>
+
                          </div>
                       </div>
                       <div class="tp-schedule-btn">

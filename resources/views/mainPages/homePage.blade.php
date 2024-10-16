@@ -187,7 +187,9 @@
                     <!-- Image container with fixed size and centered image -->
                     <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
                         <a href="{{ route('books.show', $inventoryItem->id) }}">
-                            <img src="{{ $inventoryItem->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
+                           <img src="{{ $inventoryItem->book->image ?? asset('images/default-book-image.jpg') }}"
+     alt="Book Image"
+     style="width: 100%; max-width: 300px; height: 200px; object-fit: cover;   background-color: #f8f8f8;">
                         </a>
                         <div class="tp-shop-product-thumb-tag">
                             <span class="{{ $inventoryItem->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($inventoryItem->condition) }}</span>
@@ -224,9 +226,16 @@
                         <div class="tp-shop-product-status card-status">
                             <span>Status: {{ ucfirst($inventoryItem->status) }}</span>
                         </div>
-                        <div class="tp-shop-product-price" style="padding-top: 10px;">
-                             <span>${{ number_format($inventoryItem->price, 2) }}</span>
-                        </div>
+                      <div class="tp-shop-product-price" style="padding-top: 10px;">
+    @if (!is_null($inventoryItem->discount_price))
+        <!-- Discounted price and original price -->
+        <span class="new-price" style="color: #e74c3c; font-weight: bold;">${{ number_format($inventoryItem->discount_price, 2) }}</span>
+        <span class="old-price" style="text-decoration: line-through; color: #999; margin-left: 10px;">${{ number_format($inventoryItem->price, 2) }}</span>
+    @else
+        <!-- Show only the original price -->
+        <span class="new-price">${{ number_format($inventoryItem->price, 2) }}</span>
+    @endif
+</div>
                     </div>
                 </div>
          </div>
@@ -242,7 +251,9 @@
                     <!-- Image container with fixed size and centered image -->
                     <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
                         <a href="{{ route('books.show', $discountedBook->id) }}">
-                            <img src="{{ $discountedBook->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
+                                   <img src="{{ $discountedBook->book->image ?? asset('images/default-book-image.jpg') }}"
+     alt="Book Image"
+     style="width: 100%; max-width: 300px; height: 200px; object-fit: cover;   background-color: #f8f8f8;">
                         </a>
                         <div class="tp-shop-product-thumb-tag">
                             <span class="{{ $discountedBook->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($discountedBook->condition) }}</span>
@@ -279,9 +290,16 @@
                         <div class="tp-shop-product-status card-status">
                             <span>Status: {{ ucfirst($discountedBook->status) }}</span>
                         </div>
-                        <div class="tp-shop-product-price" style="padding-top: 10px;">
-                             <span>${{ number_format($discountedBook->price, 2) }}</span>
-                        </div>
+                            <div class="tp-shop-product-price" style="padding-top: 10px;">
+    @if (!is_null($discountedBook->discount_price))
+        <!-- Discounted price and original price -->
+        <span class="new-price" style="color: #e74c3c; font-weight: bold;">${{ number_format($discountedBook->discount_price, 2) }}</span>
+        <span class="old-price" style="text-decoration: line-through; color: #999; margin-left: 10px;">${{ number_format($discountedBook->price, 2) }}</span>
+    @else
+        <!-- Show only the original price -->
+        <span class="new-price">${{ number_format($discountedBook->price, 2) }}</span>
+    @endif
+</div>
                     </div>
                 </div>
          </div>

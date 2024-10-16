@@ -6,6 +6,7 @@
 
     <!-- cart area start -->
     <section class="tp-cart-area pt-120  pb-120">
+
        <div class="container">
           <div class="row">
             <div class="col-xl-9 col-lg-8">
@@ -15,6 +16,48 @@
         {{ session('success') }}
     </div>
 @endif
+@auth
+
+            @else
+<div class="col-xl-7 col-lg-7">
+    <div class="tp-checkout-verify">
+       <div class="tp-checkout-verify-item">
+          <p class="tp-checkout-verify-reveal">Returning customer? <button type="button" class="tp-checkout-login-form-reveal-btn">Click here to login</button></p>
+
+          <div id="tpReturnCustomerLoginForm" class="tp-return-customer">
+            <form action="{{ route('loginCheckOut') }}" method="POST">
+@csrf
+                <div class="tp-return-customer-input">
+                   <label>Email</label>
+                   <input type="email" name="email" placeholder="Your Email">
+                   @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                </div>
+                <div class="tp-return-customer-input">
+                   <label>Password</label>
+                   <input type="password" name="password" placeholder="Password">
+                   @error('password')
+                   <div class="text-danger">{{ $message }}</div>
+               @enderror
+                </div>
+
+                <div class="tp-return-customer-suggetions d-sm-flex align-items-center justify-content-between mb-20">
+                   <div class="tp-return-customer-remeber">
+                      <input id="remeber" type="checkbox">
+                      <label for="remeber">Remember me</label>
+                   </div>
+                   {{-- <div class="tp-return-customer-forgot">
+                      <a href="#">Forgot Password?</a>
+                   </div> --}}
+                </div>
+                <button type="submit" class="tp-return-customer-btn tp-checkout-btn">Login</button>
+             </form>
+          </div>
+       </div>
+    </div>
+</div>
+@endauth
                    <table class="table">
                       <thead>
                          <tr>
@@ -33,24 +76,14 @@
                                 <!-- title -->
                                 <td class="tp-cart-title"><a href="#">{{ $details['title'] }}</a></td>
                                 <!-- price -->
-                                <td class="tp-cart-price"><span>$100 </span></td>
+                                <td class="tp-cart-price"><span>${{ number_format($details['price'] ?? 0, 2) }} </span></td>
                                 {{-- {{ number_format($details['price'], 2) }} --}}
                                 <!-- quantity -->
                                 <td class="tp-cart-quantity">
-                                   <div class="tp-product-quantity cart mt-10 mb-10">
-                                      <span class="tp-cart-minus">
-                                         <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1 1H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                         </svg>
-                                      </span>
+
+
                                       <input class="tp-cart-input" type="text" value="{{ $details['quantity'] }}" readonly>
-                                      <span class="tp-cart-plus">
-                                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M5 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M1 5H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                         </svg>
-                                      </span>
-                                   </div>
+
                                 </td>
                                 <!-- action -->
                                 <td class="tp-cart-action">
@@ -102,7 +135,7 @@
                 <div class="tp-cart-checkout-wrapper">
                    <div class="tp-cart-checkout-top d-flex align-items-center justify-content-between">
                       <span class="tp-cart-checkout-top-title">Subtotal</span>
-                      <span class="tp-cart-checkout-top-price">$742</span>
+                      <span class="tp-cart-checkout-top-price">${{ number_format(session()->get('cart_total_price', 0.0), 2) }}</span>
                    </div>
                    <div class="tp-cart-checkout-shipping">
                       <h4 class="tp-cart-checkout-shipping-title">Shipping</h4>
@@ -124,13 +157,21 @@
                    </div>
                    <div class="tp-cart-checkout-total d-flex align-items-center justify-content-between">
                       <span>Total</span>
-                      <span>$724</span>
+                      <span>${{ number_format(session()->get('cart_total_price', 0.0), 2) }}</span>
                    </div>
                    <div class="tp-cart-checkout-proceed">
+                    @auth
+
                     <form action="{{ route('proceed.order') }}" method="POST">
                         @csrf
                         <button type="submit"  class="tp-cart-checkout-btn w-100">Proceed to Checkout</button>
                     </form>
+                    @else
+                    <!-- Show a message if the user is not authenticated -->
+                    <div class="alert alert-warning">
+                        Please <a href="{{ route('login') }}">sign in</a> to proceed to checkout.
+                    </div>
+                @endauth
                    </div>
                 </div>
              </div>

@@ -170,7 +170,9 @@
         <!-- Image container with fixed size and centered image -->
         <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
             <a href="{{ route('books.show', $inventory->id) }}">
-                <img src="{{ $inventory->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
+<img src="{{ $inventory->book->image ?? asset('images/default-book-image.jpg') }}"
+     alt="Book Image"
+     style="width: 100%; max-width: 300px; height: 200px; object-fit: cover;   background-color: #f8f8f8;">
             </a>
             <div class="tp-shop-product-thumb-tag">
                 <span class="{{ $inventory->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($inventory->condition) }}</span>

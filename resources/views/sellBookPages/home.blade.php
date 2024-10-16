@@ -10,7 +10,14 @@
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
+
 @endif
+@if(isset($errorMessage))
+<div class="alert alert-danger">
+    {{ $errorMessage }}
+</div>
+
+        @endif
           <div class="row">
              <div class="col-lg-12">
                 <div class="tp-application-heading wow fadeInUp" data-wow-delay=".3s">

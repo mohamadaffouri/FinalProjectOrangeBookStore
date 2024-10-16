@@ -81,7 +81,7 @@
                                 <!-- title -->
                                 <td class="tp-cart-title"><a href="#">{{ $details['title'] }}</a></td>
                                 <!-- price -->
-                                <td class="tp-cart-price"><span>$100 </span></td>
+                                <td class="tp-cart-price"><span>{{ $details['price'] }} </span></td>
                                 {{-- {{ number_format($details['price'], 2) }} --}}
                                 <!-- quantity -->
 
@@ -157,7 +157,7 @@
                    </div>
                    <div class="tp-cart-checkout-total d-flex align-items-center justify-content-between">
                       <span>Total</span>
-                      <span>$724</span>
+                      <span>${{ $totalPrice }}</span>
                    </div>
                    <div class="tp-cart-checkout-proceed">
                     @auth

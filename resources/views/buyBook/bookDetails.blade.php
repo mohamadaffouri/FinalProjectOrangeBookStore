@@ -46,8 +46,8 @@
                             </div>
                          </div>
                       </div>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum <br>
-                         dolore eu fugiat nulla pariatur ...<span>See more</span></p>
+                      <p>{{ $inventoryItem->book->description }}<br>
+
 
                       <!-- price -->
                       <div class="tp-product-details-price-wrapper mb-20">
@@ -63,14 +63,7 @@
                       <!-- actions -->
                       <div class="tp-product-details-action-wrapper">
                          <h3 class="tp-product-details-action-title">Quantity</h3>
-                         <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
-                            <div class="tp-product-details-quantity">
-                                <div class="tp-product-quantity mb-15 mr-15">
-                                    <button class="tp-cart-minus">-</button>
-                                    <input class="tp-cart-input" type="text" id="quantity-input" value="1">
-                                    <button class="tp-cart-plus">+</button>
-                                </div>
-                            </div>
+ <div class="tp-product-details-add-to-cart mb-15 w-100">
                              <form action="{{ route('addToCart') }}" method="POST">
                         @csrf
                         <input type="hidden" name="inventory_id" value="{{ $inventoryItem->id }}">
@@ -436,7 +429,10 @@
                     <!-- Image container with fixed size and centered image -->
                     <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
                         <a href="{{ route('books.show', $inventory->id) }}">
-                            <img src="{{ $inventory->book->image ?? asset('images/default-book-image.jpg') }}" alt="Book Image" style="width: auto; height: 100%; max-width: 100%;">
+                            <a href="{{ route('books.show', $inventory->id) }}">
+                                <img src="{{ $inventory->book->image ?? asset('images/default-book-image.jpg') }}"
+          alt="Book Image"
+          style="width: 100%; max-width: 300px; height: 200px; object-fit: cover;   background-color: #f8f8f8;">
                         </a>
                         <div class="tp-shop-product-thumb-tag">
                             <span class="{{ $inventory->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($inventory->condition) }}</span>
@@ -463,7 +459,14 @@
                             <span>Status: {{ ucfirst($inventory->status) }}</span>
                         </div>
                         <div class="tp-shop-product-price" style="padding-top: 10px;">
-                             <span>${{ number_format($inventory->price, 2) }}</span>
+                            @if (!is_null($inventory->discount_price))
+                                <!-- Discounted price and original price -->
+                                <span class="new-price" style="color: #e74c3c; font-weight: bold;">${{ number_format($inventory->discount_price, 2) }}</span>
+                                <span class="old-price" style="text-decoration: line-through; color: #999; margin-left: 10px;">${{ number_format($inventory->price, 2) }}</span>
+                            @else
+                                <!-- Show only the original price -->
+                                <span class="new-price">${{ number_format($inventory->price, 2) }}</span>
+                            @endif
                         </div>
                     </div>
                 </div>

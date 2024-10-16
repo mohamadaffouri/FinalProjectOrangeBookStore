@@ -12,43 +12,35 @@ class BookController extends Controller
 
     public function checkIsbn(Request $request)
     {
-        // Validate the input
         $request->validate([
             'isbn' => 'required|string',
             'condition' => 'required|string',
         ]);
 
-        // Retrieve the ISBN from the form input
         $isbn = $request->input('isbn');
         $condition = $request->input('condition');
-        // Check if the book exists in the local database
-        // $book = Book::where('isbn_10', $isbn)
-        //             ->orWhere('isbn_13', $isbn)
-        //             ->first();
 
-        // // If the book exists, redirect to accept it into inventory
-        // if ($book) {
-        //     return redirect()->route('inventory.acceptBook', ['book' => $book->id]);
-        // }
-
-        // If the book does not exist, fetch data from Google Books API
-        $response = Http::get('https://www.googleapis.com/books/v1/volumes', [
-            'q' => 'isbn:' . $isbn,
+        $response = Http::post('http://sellurbook.com:5000/isbn', [
+            'isbn' => $isbn
         ]);
-
-        // Check if the API response is successful and contains book data
-        if ($response->successful() && isset($response['items'][0])) {
-            $bookData = $response['items'][0]['volumeInfo'];
-
-            // Pass the fetched book data to the createFromApi view for user confirmation
+            if ($response->successful()) {
+                // Get the response data
+                $bookData = $response->json();
+                if ($bookData['Approval'] == 'No') {
+                    // Return the view with a message about approval
+                    return view('sellBookPages.home', [
+                        'isbn' => $isbn,
+                        'condition' => $condition,
+                        'bookData' => $bookData,
+                        'errorMessage' => 'This book is not approved for purchase.'
+                    ]);
+                }
             return view('books.createFromApi', [
                 'isbn' => $isbn,
                 'condition' =>$condition,
                 'bookData' => $bookData
             ]);
         } else {
-            // If no book data is found or the API fails, show an error
-
             return redirect()->back()->with('error', 'No book found with this ISBN.');
         }
     }
@@ -74,7 +66,11 @@ class BookController extends Controller
             'title' => 'required|string|max:255',
             'author' => 'nullable|string|max:255',
             'edition' => 'nullable|string|max:255',
-            'image_url' => 'nullable|url'
+            'image_url' => 'nullable|url',
+            'languages' => 'nullable|string|max:255', // Assuming these fields are in your form
+        'description' => 'nullable|string',
+        'price' => 'required|numeric', // Ensure price is provided
+        'condition' => 'required|string' // Ensure condition is provided
         ]);
 
         // Check if the book already exists in the database
@@ -90,7 +86,9 @@ class BookController extends Controller
                 'author' => $request->input('author'),
                 'edition' => $request->input('edition'),
                 'isbn_13' => $request->input('isbn_13'),
-                'image' => $request->input('image_url'), // Update ISBN-13 if changed
+                'image' => $request->input('image_url'),
+                'languages' => $request->input('language'),
+                'description' => $request->input('description'),// Update ISBN-13 if changed
             ]);
         } else {
             // Create a new book entry
@@ -101,9 +99,12 @@ class BookController extends Controller
                 'author' => $request->input('author'),
                 'edition' => $request->input('edition'),
                 'image' => $request->input('image_url'),
+                'languages'=>$request->input('language'),
+                'description'=>$request->input('description'),
             ]);
         }
 // Save book details in the session (for cart or further use)
+$book = Book::find($book->id);
 $cart = session()->get('cart', []); // Retrieve existing cart or empty array
 $cart[$book->id] = [
     'id' => $book->id,
@@ -112,12 +113,25 @@ $cart[$book->id] = [
     'isbn_10' => $book->isbn_10,
     'isbn_13' => $book->isbn_13,
     'image' => $book->image,
+    'price'=>$request->input('price'),
+    'languages'=>$request->input('language'),
     'quantity' => 1,
     'condition'  =>$request->input('condition'),
      // Default quantity for the cart
 ];
 session()->put('cart', $cart);
+$totalItems = 0;
+$totalPrice = 0.0;
 
+// Iterate through the cart to calculate total items and total price
+foreach ($cart as $item) {
+    $totalItems += $item['quantity'];
+    $totalPrice += $item['price'] * $item['quantity'];
+}
+
+// Save the total items and total price in the session
+session()->put('cart_total_items', $totalItems);
+session()->put('cart_total_price', $totalPrice);
 return redirect()->route('SellYourBook')
 ->with('success', 'Your book was added to the cart successfully!');
 

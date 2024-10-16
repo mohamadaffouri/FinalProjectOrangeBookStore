@@ -12,7 +12,8 @@ class Book extends Model
         'title',
         'author',
         'edition',
-        'image'
+        'image',
+        'languages', 'description', 'categoryTree'
     ];
 
     public function orderItems()

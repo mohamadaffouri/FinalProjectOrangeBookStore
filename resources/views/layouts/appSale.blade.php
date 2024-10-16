@@ -121,7 +121,7 @@
 @else
     <p>No items in the cart.</p>
 @endif
-                     <a href="#" class="cartmini__del home-shop"><i class="fa-regular fa-xmark"></i></a>
+
                   </div>
                </div>
                <!-- if no item in cart -->
@@ -134,7 +134,7 @@
             <div class="cartmini__checkout">
                <div class="cartmini__checkout-title mb-30">
                   <h4>Subtotal:</h4>
-                  <span>$113.00</span>
+                  <span>${{ number_format(session()->get('cart_total_price', 0.0), 2) }}</span>
                </div>
                <div class="cartmini__checkout-btn home-shop">
                 <a href="{{ route('sellCart') }}" class="tp-btn mb-10 w-100">View Cart</a>
@@ -201,7 +201,7 @@
                                     <path d="M12.9257 10.1017H12.9715" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                  </svg>
                               </span>
-                              <i>1</i>
+                              <i>{{ session()->get('cart_total_items', 0) }}</i>
                            </button>
                         </div>
                         <div class="tp-header-shop-btn d-none d-lg-block">

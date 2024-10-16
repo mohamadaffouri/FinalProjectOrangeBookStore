@@ -123,7 +123,7 @@
 @else
     <p>No items in the cart.</p>
 @endif
-                     <a href="#" class="cartmini__del home-shop"><i class="fa-regular fa-xmark"></i></a>
+
                   </div>
                </div>
                <!-- if no item in cart -->

@@ -98,7 +98,7 @@
 		if($(this).children('.megamenu-demo-fullwidth').length > 0){
 			$(this).addClass('tp-megamenu-fullwidth')
 		}
-		
+
 		if($(this).children('.megamenu-demo-small').length > 0){
 			$(this).addClass('tp-megamenu-small')
 		}
@@ -108,7 +108,7 @@
 	////////////////////////////////////////////////////
 	// 03. Sticky Header Js
 	windowOn.on('scroll', function () {
-		var scroll = $(window).scrollTop();	
+		var scroll = $(window).scrollTop();
 		if (scroll < 200) {
 			$("#header-sticky").removeClass("tp-header-sticky");
 		} else {
@@ -158,7 +158,7 @@
 		$(this).css("color", $(this).attr("data-text-color"));
 	});
 
-	
+
 	////////////////////////////////////////////////////
 	// 06. Offcanvas Js
 	$(".offcanvas-open-btn").on("click", function () {
@@ -245,7 +245,7 @@
 		});
 		$("#amount").val("$" + $("#slider-range").slider("values", 0) +
 			" - $" + $("#slider-range").slider("values", 1));
-	
+
 		$("#slider-range-offcanvas").slider({
 			range: true,
 			min: 0,
@@ -267,7 +267,7 @@
 
 
 	////////////////////////////////////////////////////
-	// Active Class 
+	// Active Class
 	$('.tp-plan-4-item').on('mouseenter', function () {
 		$(this).addClass('active').parent().siblings().find('.tp-plan-4-item').removeClass('active');
 	})
@@ -290,8 +290,8 @@
 	$('.tp-course-details-2-nav nav ul li').on('click', function () {
 		$(this).addClass('current').siblings().removeClass('current');
 	});
-	
-	
+
+
 	////////////////////////////////////////////////////
 	// . language
 	if ($("#header-bottom__lang-toggle").length > 0) {
@@ -428,7 +428,7 @@
 	});
 
 
-	// campus life 
+	// campus life
 	var swiper = new Swiper(".tp-campus-life-active", {
 		slidesPerView: 'auto',
 		spaceBetween: 130,
@@ -513,7 +513,7 @@
 		],
 	});
 
-	  
+
 	// home Four
 	var slider = new Swiper('.tp-program-4-active', {
 		slidesPerView: 4,
@@ -545,8 +545,8 @@
 			},
 		},
 	});
-	  
-	
+
+
 	// home Five
 	$('.tp-slider-5-active').slick({
 		slidesToShow: 1,
@@ -576,7 +576,7 @@
 		],
 	});
 
-		  
+
 	// home Five
 	var slider = new Swiper('.tp-brand-5-active', {
 		slidesPerView: 6,
@@ -603,7 +603,7 @@
 		},
 	});
 
-		  
+
 	// home Five
 	var slider = new Swiper('.tp-trainer-5-active', {
 		slidesPerView: 2,
@@ -637,7 +637,7 @@
 		slidesPerView: 1,
 		spaceBetween: 30,
 		loop: true,
-		
+
 		pagination: {
 		  el: ".tp-shop-banner-dot",
 		  clickable: true,
@@ -693,7 +693,7 @@
 	// 15. Wow Js
 	new WOW().init();
 
-	
+
 	/////////////////////////////////////////////
 	// 16. Ecommerce js
 	function tp_ecommerce() {
@@ -705,7 +705,7 @@
 			$input.change();
 			return false;
 		});
-	
+
 		$('.tp-cart-plus').on('click', function () {
 			var $input = $(this).parent().find('input');
 			$input.val(parseInt($input.val()) + 1);
@@ -716,37 +716,37 @@
 
 		$('.tp-checkout-payment-item label').on('click', function () {
 			$(this).siblings('.tp-checkout-payment-desc').slideToggle(400);
-			
+
 		});
-		
+
 
 		$('.tp-color-variation-btn').on('click', function () {
 			$(this).addClass('active').siblings().removeClass('active');
 		});
-		
+
 
 		$('.tp-size-variation-btn').on('click', function () {
 			$(this).addClass('active').siblings().removeClass('active');
 		});
-	
+
 		////////////////////////////////////////////////////
 		// 17. Show Login Toggle Js
 		$('.tp-checkout-login-form-reveal-btn').on('click', function () {
 			$('#tpReturnCustomerLoginForm').slideToggle(400);
 		});
-	
+
 		////////////////////////////////////////////////////
 		// 18. Show Coupon Toggle Js
 		$('.tp-checkout-coupon-form-reveal-btn').on('click', function () {
 			$('#tpCheckoutCouponForm').slideToggle(400);
 		});
-	
+
 		////////////////////////////////////////////////////
 		// 19. Create An Account Toggle Js
 		$('#cbox').on('click', function () {
 			$('#cbox_info').slideToggle(900);
 		});
-	
+
 		////////////////////////////////////////////////////
 		// 20. Shipping Box Toggle Js
 		$('#ship-box').on('click', function () {
@@ -773,27 +773,27 @@
 				marker.style.left = e.offsetLeft+"px";
 				marker.style.width = e.offsetWidth+"px";
 			}
-				
-		
+
+
 			item.forEach(link => {
 				link.addEventListener('click', (e)=>{
 					indicator(e.target);
 				});
 			});
-			
+
 			var activeNav = $('.nav-link.active');
 			var activewidth = $(activeNav).width();
 			var activePadLeft = parseFloat($(activeNav).css('padding-left'));
 			var activePadRight = parseFloat($(activeNav).css('padding-right'));
 			var totalWidth = activewidth + activePadLeft + activePadRight;
-			
+
 			var precedingAnchorWidth = anchorWidthCounter();
-		
-		
+
+
 			$(marker).css('display','block');
-			
+
 			$(marker).css('width', totalWidth);
-		
+
 			function anchorWidthCounter() {
 				var anchorWidths = 0;
 				var a;
@@ -808,24 +808,24 @@
 					// Break out of the each function.
 					return false;
 					}
-			
+
 					a = $(elem).find('button');
 					aWidth = a.width();
 					aPadLeft = parseFloat(a.css('padding-left'));
 					aPadRight = parseFloat(a.css('padding-right'));
 					aTotalWidth = aWidth + aPadLeft + aPadRight;
-			
+
 					anchorWidths = anchorWidths + aTotalWidth;
-	
+
 				});
-		
+
 				return anchorWidths;
 			}
 		}
 		tp_tab_line_2();
 	}
 
-	
+
 	////////////////////////////////////////////////////
 	// 18. Counter Js
 	new PureCounter();
@@ -834,7 +834,7 @@
 		selector: ".filesizecount",
 		pulse: 2,
 	});
-	
+
 
 	//////////////////////////////////////////////////
 	// 19. Header height
@@ -931,7 +931,7 @@
 	if($('#calendar').length > 0){
 		document.addEventListener('DOMContentLoaded', function() {
 			var calendarEl = document.getElementById('calendar');
-	
+
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 				height: '600px',
 				expandRows: true,
@@ -948,12 +948,12 @@
 				editable: true,
 				selectable: true,
 			});
-	
+
 			calendar.render();
 		});
 	}
 
-	
+
 	////////////////////////////////////////////////////
 	// 25. chart js
 	if($('#chart').length > 0){
@@ -974,9 +974,9 @@
 				categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
 			}
 		}
-		
+
 		var chart = new ApexCharts(document.querySelector("#chart"), options);
-		
+
 		chart.render();
 	}
 
@@ -1012,7 +1012,7 @@
 		document.addEventListener('DOMContentLoaded', function () {
 			const showMoreButton = document.querySelector('.show-more-button');
 			const content = document.querySelector('.content');
-	
+
 			showMoreButton.addEventListener('click', function () {
 				const svgIcon = showMoreButton.querySelector('.svg-icon');
 				if (content.classList.contains('show')) {
@@ -1044,7 +1044,7 @@
         star.addEventListener('click', function() {
             const value = this.getAttribute('data-value');
             document.getElementById('rating-value').value = value;
-    
+
             // Highlight selected stars and reset the rest
             document.querySelectorAll('.tp-product-details-review-form-rating-icon span i').forEach((s, index) => {
                 s.classList.remove('fa-solid');
