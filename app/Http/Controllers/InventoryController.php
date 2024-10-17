@@ -43,13 +43,62 @@ class InventoryController extends Controller
 
         return redirect()->route('inventory.index')->with('success', 'Book added to inventory successfully!');
     }
-    public function showBooks()
-{
-    // Fetch all inventory items along with their related books
-    $inventoryItems = Inventory::with('book')->paginate(9);
+    public function showBooks(Request $request)
+    {
+        // Create a query to fetch inventory items with their related books
+        $query = Inventory::with('book');
+
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $query->where(function ($q) use ($request) {
+                // Prioritize `discount_price` if available, otherwise use `price`
+                $q->where(function ($query) use ($request) {
+                    $query->whereNotNull('discount_price')
+                          ->whereBetween('discount_price', [$request->input('min_price'), $request->input('max_price')]);
+                })
+                ->orWhere(function ($query) use ($request) {
+                    $query->whereNull('discount_price')
+                          ->whereBetween('price', [$request->input('min_price'), $request->input('max_price')]);
+                });
+            });
+        }
+
+        // Apply product status filter (sales, available, coming soon)
+        if ($request->filled('status')) {
+            $status = $request->input('status');
+
+            if ($status === 'sales') {
+                // If status is 'sales', filter books that have a discount price
+                $query->whereNotNull('discount_price');
+            } else {
+                // Otherwise, filter based on the status as usual
+                $query->where('status', $status);
+            }
+        }
+
+        // Apply language filter
+        if ($request->filled('language')) {
+            if ($request->input('language') == 'other') {
+                // Fetch books with languages other than English, German, or Swedish
+                $query->whereHas('book', function ($q) {
+                    $q->where(function ($q) {
+                        $q->whereNotIn('languages', ['English', 'German', 'Swedish'])
+                          ->orWhereNull('languages'); // Include where language is null
+                    });
+                });
+            } else {
+                // Fetch books with the selected language
+                $query->whereHas('book', function ($q) use ($request) {
+                    $q->where('languages', $request->input('language'));
+                });
+            }
+        }
+
+        // Paginate the results
+        $inventoryItems = $query->paginate(9);
 
         return view('buyBook.allBook', compact('inventoryItems'));
-}
+    }
+
 public function show($id)
 {
 

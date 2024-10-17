@@ -9,109 +9,89 @@
           <div class="row">
              <div class="col-lg-3 order-2 order-lg-0">
                 <div class="tp-shop-grid-sidebar mr-10">
-                   <!-- filter -->
-                   <div class="tp-shop-widget mb-35">
-                      <h3 class="tp-shop-widget-title no-border">Price Filter</h3>
-
-                      <div class="tp-shop-widget-content">
-                         <div class="tp-shop-widget-filter">
-                            <div id="slider-range" class="mb-10"></div>
-                            <div class="tp-shop-widget-filter-info d-flex align-items-center justify-content-between">
-                               <span class="input-range">
-                                  <input type="text" id="amount" readonly>
-                               </span>
-                               <button class="tp-shop-widget-filter-btn" type="button">Reset</button>
+                    <form id="filterForm" action="{{ route('books.index') }}" method="GET">
+                        <!-- Price Filter -->
+                        <div class="tp-shop-widget mb-35">
+                            <h3 class="tp-shop-widget-title no-border">Price Filter</h3>
+                            <div class="tp-shop-widget-content">
+                                <div class="tp-shop-widget-filter">
+                                    <div class="mb-10">
+                                        <label for="min_price">Min Price:</label>
+                                        <input type="number" name="min_price" value="{{ request('min_price', 0) }}" min="0">
+                                    </div>
+                                    <div class="mb-10">
+                                        <label for="max_price">Max Price:</label>
+                                        <input type="number" name="max_price" value="{{ request('max_price', 500) }}" max="500">
+                                    </div>
+                                </div>
                             </div>
-                         </div>
-                      </div>
-                   </div>
-                   <!-- status -->
-                   <div class="tp-shop-widget mb-50">
-                      <h3 class="tp-shop-widget-title">Product Status</h3>
+                        </div>
 
-                      <div class="tp-shop-widget-content">
-                         <div class="tp-shop-widget-checkbox">
-                            <ul class="filter-items filter-checkbox">
-                               <li class="filter-item checkbox">
-                                  <input id="on_sale" type="checkbox">
-                                  <label for="on_sale">On sale</label>
-                               </li>
-                               <li class="filter-item checkbox">
-                                  <input id="in_stock" type="checkbox">
-                                  <label for="in_stock">In Stock</label>
-                               </li>
-                            </ul><!-- .filter-items -->
-                         </div>
-                      </div>
-                   </div>
-                   <!-- categories -->
-                   <div class="tp-shop-widget mb-50">
-                      <h3 class="tp-shop-widget-title">Categories</h3>
+                        <!-- Product Status Filter -->
+                        <div class="tp-shop-widget mb-50">
+                            <h3 class="tp-shop-widget-title">Product Status</h3>
+                            <div class="tp-shop-widget-content">
+                                <div class="tp-shop-widget-checkbox">
+                                    <ul class="filter-items filter-checkbox">
+                                        <li class="filter-item checkbox">
+                                            <input id="all_status" type="radio" name="status" value="" {{ request('status') == '' ? 'checked' : '' }}>
+                                            <label for="all_status">Show All</label>
+                                        </li>
+                                        <li class="filter-item checkbox">
+                                            <input id="sales" type="radio" name="status" value="sales" {{ request('status') == 'sales' ? 'checked' : '' }}>
+                                            <label for="sales">Sales</label>
+                                        </li>
+                                        <li class="filter-item checkbox">
+                                            <input id="available" type="radio" name="status" value="available" {{ request('status') == 'available' ? 'checked' : '' }}>
+                                            <label for="available">Available</label>
+                                        </li>
+                                        <li class="filter-item checkbox">
+                                            <input id="coming_soon" type="radio" name="status" value="Coming soon" {{ request('status') == 'Coming soon' ? 'checked' : '' }}>
+                                            <label for="coming_soon">Coming Soon</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
-                      <div class="tp-shop-widget-content">
-                         <div class="tp-shop-widget-categories">
-                            <ul>
-                               <li><a href="#">Children's Books<span>10</span></a></li>
-                               <li><a href="#">Comedy<span>18</span></a></li>
-                               <li><a href="#">Family Story<span>22</span></a></li>
-                               <li><a href="#">Fiction<span>17</span></a></li>
-                               <li><a href="#">Modern Fiction<span>22</span></a></li>
-                               <li><a href="#">History<span>14</span></a></li>
-                               <li><a href="#">Romance<span>19</span></a></li>
-                               <li><a href="#">Science Fiction<span>29</span></a></li>
-                               <li><a href="#">Phones <span>05</span></a></li>
-                               <li><a href="#">Grocery <span>14</span></a></li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                   <!-- age -->
-                   <div class="tp-shop-widget mb-50">
-                      <h3 class="tp-shop-widget-title">Ages</h3>
+                        <!-- Language Filter -->
+                        <div class="tp-shop-widget mb-50">
+                            <h3 class="tp-shop-widget-title">Language</h3>
+                            <div class="tp-shop-widget-content">
+                                <div class="tp-shop-widget-checkbox">
+                                    <ul class="filter-items filter-checkbox">.
+                                        <li class="filter-item checkbox">
+                                            <input id="all_languages" type="radio" name="language" value="" {{ request('language') == '' ? 'checked' : '' }}>
+                                            <label for="all_languages">Show All</label>
+                                        </li>
+                                        <li class="filter-item checkbox">
+                                            <input id="english" type="radio" name="language" value="English" {{ request('language') == 'English' ? 'checked' : '' }}>
+                                            <label for="english">English</label>
+                                        </li>
+                                        <li class="filter-item checkbox">
+                                            <input id="german" type="radio" name="language" value="German" {{ request('language') == 'German' ? 'checked' : '' }}>
+                                            <label for="german">German</label>
+                                        </li>
+                                        <li class="filter-item checkbox">
+                                            <input id="swedish" type="radio" name="language" value="Swedish" {{ request('language') == 'Swedish' ? 'checked' : '' }}>
+                                            <label for="swedish">Swedish</label>
+                                        </li>
+                                        <li class="filter-item checkbox">
+                                            <input id="other" type="radio" name="language" value="other" {{ request('language') == 'other' ? 'checked' : '' }}>
+                                            <label for="other">Other</label>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                      <div class="tp-shop-widget-content">
-                         <div class="tp-shop-widget-categories height">
-                            <ul>
-                               <li><a href="#">0 - 2 Years</a></li>
-                               <li><a href="#">3 - 5 Years</a></li>
-                               <li><a href="#">6 - 9 Years</a></li>
-                               <li><a href="#">9 - 12 Years</a></li>
-                               <li><a href="#">Teen/Young Adult</a></li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                   <!-- author -->
-                   <div class="tp-shop-widget mb-50">
-                      <h3 class="tp-shop-widget-title">Featured Authors</h3>
+                            </div>
+                        </div>
 
-                      <div class="tp-shop-widget-content">
-                         <div class="tp-shop-widget-categories height">
-                            <ul>
-                               <li><a href="#">Bo Eriksson<span>8</span></a></li>
-                               <li><a href="#">Dan Gordon<span>2</span></a></li>
-                               <li><a href="#">Gunvor Hofmo<span>4</span></a></li>
-                               <li><a href="#">Nadya Toloko<span>6</span></a></li>
-                               <li><a href="#">Per Ahlin<span>3</span></a></li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
-                   <!-- Language -->
-                   <div class="tp-shop-widget mb-50">
-                      <h3 class="tp-shop-widget-title">Language</h3>
+                        <!-- Submit Button -->
+                        <div class="tp-shop-widget-filter-info d-flex align-items-center justify-content-between">
+                            <button type="submit" class="tp-shop-widget-filter-btn w-100">Apply Filter</button>
+                        </div>
+                    </form>
 
-                      <div class="tp-shop-widget-content">
-                         <div class="tp-shop-widget-categories height">
-                            <ul>
-                               <li><a href="#">English</a></li>
-                               <li><a href="#">Spanish</a></li>
-                               <li><a href="#">Irish</a></li>
-                               <li><a href="#">Swedish</a></li>
-                            </ul>
-                         </div>
-                      </div>
-                   </div>
                 </div>
              </div>
              <div class="col-lg-9 order-1 order-lg-1">
