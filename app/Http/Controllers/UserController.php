@@ -59,6 +59,12 @@ public function create()
         $roles = Role::all();
         return view('adminDashboard.editUser', compact('user', 'roles'));
     }
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return view('mainPages.profile', compact('user', 'roles'));
+    }
     public function update(Request $request, $id)
     {
         $request->validate([

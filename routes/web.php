@@ -39,6 +39,7 @@ Route::get('manageUsers', [UserController::class, 'index'])->name('manageUsers')
 
 
 
+Route::get('/user/{id}', [UserController::class, 'editUser'])->name('user.edit');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
@@ -62,6 +63,9 @@ Route::get('/', function () {
 // Route::get('/homePage', function () {
 //     return view('mainPages.homePage');
 // })->name('homePage');
+
+
+
 Route::get('/homePage', [BookController::class, 'buyHomePage'])->name('homePage');
 // Routes for BookController
 Route::post('/books/check-isbn', [BookController::class, 'checkIsbn'])->name('books.checkIsbn');
@@ -122,3 +126,9 @@ Route::post('/storeAddress', [UserController::class, 'storeAddress'])->name('add
 Route::post('/add-to-cart', [BookController::class, 'buyCart'])->name('addToCart');
 Route::post('/save-address', [OrderController::class, 'saveAddress'])->name('save.address');
 Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeOrder');
+
+
+
+
+Route::get('/userOrders', [OrderController::class, 'userOrders'])->name('userOrders');
+Route::get('/userBuyOrders', [OrderController::class, 'userBuyOrders'])->name('userBuyOrders');

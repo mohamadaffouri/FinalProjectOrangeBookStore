@@ -227,8 +227,8 @@
                                  <div class="tp-header-user-list">
                                     <ul>
                                         @if(Auth::check())
-                                        <li><a href="instructor-dashboard.html">My Dashboard</a></li>
-                                       <li><a href="instructor-profile.html">My Profile</a></li>
+                                        <li><a href="{{ route('userOrders') }}">Sell Orders</a></li>
+                                       <li><a href="{{ route('user.edit', auth()->user()->id) }}">My Profile</a></li>
                                        <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
@@ -237,7 +237,7 @@
                                             </a>
                                         </form>
                                     </li>                                    @else
-                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="{{ route('login') }}">Login</a></li>
                                     @endif
 
                                     </ul>

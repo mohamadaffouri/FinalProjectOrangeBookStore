@@ -31030,3 +31030,75 @@ span.common-pale-purple {
     font-size: 16px; /* Slightly smaller size for the old price */
     margin-left: 10px; /* Add some spacing between the two prices */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.table-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table-header {
+    background-color: #f7f7f7;
+    border-bottom: 2px solid #ececec;
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ececec;
+}
+
+.table-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.table-text {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.table-col {
+    flex: 1;
+    padding: 5px;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.btn-outline-primary {
+    border: 1px solid #007bff;
+    color: #007bff;
+    font-size: 0.85rem;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}

@@ -252,4 +252,35 @@ public function placeOrder(Request $request)
     return redirect()->back()->with('success', 'Your order has been placed successfully.');
 
 }
+
+
+
+public function userOrders(Request $request)
+{
+
+    $query = Order::where('user_id', auth()->id())
+                  ->where('type', 'Sell');
+
+   
+    if ($request->filled('order_id')) {
+        $query->where('id', $request->input('order_id'));
+    }
+
+    $orders = $query->get();
+    return view('mainPages.orders', compact('orders'));
+}
+public function userBuyOrders(Request $request)
+{
+
+    $query = Order::where('user_id', auth()->id())
+                  ->where('type', 'Buy');
+
+   
+    if ($request->filled('order_id')) {
+        $query->where('id', $request->input('order_id'));
+    }
+
+    $orders = $query->get();
+    return view('mainPages.buyOrders', compact('orders'));
+}
 }
