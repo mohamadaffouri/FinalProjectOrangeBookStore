@@ -46,7 +46,7 @@
                             </div>
                          </div>
                       </div>
-                      <p>{{ $inventoryItem->book->description }}<br>
+                      {{-- <p>{{ $inventoryItem->book->description }}<br> --}}
 
 
                       <!-- price -->
@@ -80,7 +80,7 @@
                          </div>
                          <button class="tp-product-details-buy-now-btn w-100">Buy Now</button>
                       </div>
-                      <div class="tp-product-details-action-sm">
+                      {{-- <div class="tp-product-details-action-sm">
                          <button type="button" class="tp-product-details-action-sm-btn">
                             <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                <path d="M1 3.16431H10.8622C12.0451 3.16431 12.9999 4.08839 12.9999 5.23315V7.52268" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -105,7 +105,7 @@
                             </svg>
                             Ask a question
                          </button>
-                      </div>
+                      </div> --}}
                       <div class="tp-product-details-query">
                          <div class="tp-product-details-query-item d-flex align-items-center">
                             <span>Book Type: </span>
@@ -133,10 +133,10 @@
                             <li>Order yours before 2.30pm for same day dispatch</li>
                          </ul>
                       </div>
-                      <div class="tp-product-details-payment d-flex align-items-center flex-wrap justify-content-between">
+                      {{-- <div class="tp-product-details-payment d-flex align-items-center flex-wrap justify-content-between">
                          <p>Guaranteed safe <br> & secure checkout</p>
                          <img src="assets/img/shop/product/payment.png" alt="">
-                      </div>
+                      </div> --}}
                    </div>
                 </div>
              </div>

@@ -258,47 +258,29 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex mb-4">
-                        <h6 class="card-title mb-0">Customer Rating</h6>
-                        <div class="dropdown ms-auto">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-sm" aria-haspopup="true"
-                               aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="#" class="dropdown-item">View Detail</a>
-                                <a href="#" class="dropdown-item">Download</a>
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 bg-purple">
+                <div class="card-body text-center">
+                    <div class="text-white-50">
+                        <div class="bi bi-box-seam display-6 mb-3"></div>
+                        <div class="display-8 mb-2">Products Buy</div>
+                        <h5>{{ array_sum($buysData) }} Sold</h5>
+                    </div>
+                    
+                    <!-- Bar chart -->
+                    <div class="bar-chart-container" style="display: flex; justify-content: space-between; align-items: flex-end; height: 150px; background-color: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px;">
+                        @foreach($buysData as $day => $sales)
+                            <div class="bar" style="width: 30px; background-color: rgba(255, 255, 255, 0.6); border-radius: 4px; height: {{ $sales / 100 }}%;" data-sales="{{ $sales }}">
+                                <span style="position: absolute; top: -25px; color: rgba(255, 255, 255, 0.85); font-size: 12px;">${{ $sales }}</span>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="text-center">
-                        <div class="display-6">3.0</div>
-                        <div class="d-flex justify-content-center gap-3 my-3">
-                            <i class="bi bi-star-fill icon-lg text-warning"></i>
-                            <i class="bi bi-star-fill icon-lg text-warning"></i>
-                            <i class="bi bi-star-fill icon-lg text-warning"></i>
-                            <i class="bi bi-star-fill icon-lg text-muted"></i>
-                            <i class="bi bi-star-fill icon-lg text-muted"></i>
-                            <span>(318)</span>
-                        </div>
-                    </div>
-                    <div class="text-muted d-flex align-items-center justify-content-center">
-                        <span class="text-success me-3 d-block">
-                            <i class="bi bi-arrow-up me-1 small"></i>+35
-                        </span> Point from last month
-                    </div>
-                    <div class="row my-4">
-                        <div class="col-md-6 m-auto">
-                            <div id="customer-rating"></div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-outline-primary btn-icon">
-                            <i class="bi bi-download"></i> Download Report
-                        </button>
+                    
+                    <!-- Labels -->
+                    <div class="bar-chart-labels" style="display: flex; justify-content: space-between; margin-top: 10px;">
+                        @foreach($salesData as $day => $sales)
+                            <div style="width: 30px; text-align: center; color: white; font-size: 12px;">{{ $day }}</div>
+                        @endforeach
                     </div>
                 </div>
             </div>

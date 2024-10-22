@@ -301,6 +301,7 @@ public function getSalesData()
         ];
 
         $salesData = [];
+        $buysData = [];
 
         // Loop through the days of the week and fetch the total sales for each day
         foreach ($weekDays as $day => $date) {
@@ -311,10 +312,19 @@ public function getSalesData()
             
             $salesData[$day] = $totalSales;
         }
+        foreach ($weekDays as $day => $date) {
+            $totalSales = DB::table('orders')
+                ->where('type', 'sell')
+                ->whereDate('created_at', $date)
+                ->sum('total_price'); // Adjust this if you want to sum other values
+            
+            $buysData[$day] = $totalSales;
+        }
 
         // Pass the sales data to the view
-        return view('adminDashboard.index', compact('salesData'));
+        return view('adminDashboard.index', compact('salesData','buysData'));
     
 }
+
 
 }
