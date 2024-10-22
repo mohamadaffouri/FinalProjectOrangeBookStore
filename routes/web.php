@@ -31,9 +31,7 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 // Route to handle logout
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/index', function () {
-    return view('adminDashboard.index');
-})->name('index');
+
 
 Route::get('manageUsers', [UserController::class, 'index'])->name('manageUsers');
 
@@ -116,6 +114,12 @@ Route::get('/checkOut', function () {
 // Route::get('/reg', function () {
 //     return view('mainPages.reg');
 // })->name('reg');
+Route::get('/contact', function () {
+    return view('mainPages.contact');
+})->name('contact');
+Route::get('/about', function () {
+    return view('mainPages.about');
+})->name('about');
 
 //------------Inventory Books---------------
 Route::get('/manageBooks', [InventoryController::class, 'adminManageBook'])->name('manageBooks');
@@ -132,3 +136,5 @@ Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place
 
 Route::get('/userOrders', [OrderController::class, 'userOrders'])->name('userOrders');
 Route::get('/userBuyOrders', [OrderController::class, 'userBuyOrders'])->name('userBuyOrders');
+Route::get('/sell-orders-totals', [OrderController::class, 'getSellOrdersTotalPerDay'])->name('sellOrdersTotalPerDay');
+Route::get('/index', [OrderController::class, 'getSalesData'])->name('index');

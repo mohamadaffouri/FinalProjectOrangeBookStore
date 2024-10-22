@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Address;
 use App\Models\Inventory;
 use App\Models\Order;
 
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class OrderController extends Controller
 {
 
@@ -283,4 +283,38 @@ public function userBuyOrders(Request $request)
     $orders = $query->get();
     return view('mainPages.buyOrders', compact('orders'));
 }
+
+
+
+public function getSalesData()
+{
+  
+        // Get the current week dates (Monday to Sunday)
+        $weekDays = [
+            'Mon' => Carbon::now()->startOfWeek(),
+            'Tue' => Carbon::now()->startOfWeek()->addDay(1),
+            'Wed' => Carbon::now()->startOfWeek()->addDay(2),
+            'Thu' => Carbon::now()->startOfWeek()->addDay(3),
+            'Fri' => Carbon::now()->startOfWeek()->addDay(4),
+            'Sat' => Carbon::now()->startOfWeek()->addDay(5),
+            'Sun' => Carbon::now()->startOfWeek()->addDay(6),
+        ];
+
+        $salesData = [];
+
+        // Loop through the days of the week and fetch the total sales for each day
+        foreach ($weekDays as $day => $date) {
+            $totalSales = DB::table('orders')
+                ->where('type', 'buy')
+                ->whereDate('created_at', $date)
+                ->sum('total_price'); // Adjust this if you want to sum other values
+            
+            $salesData[$day] = $totalSales;
+        }
+
+        // Pass the sales data to the view
+        return view('adminDashboard.index', compact('salesData'));
+    
+}
+
 }

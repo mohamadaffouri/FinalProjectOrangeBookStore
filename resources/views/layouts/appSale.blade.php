@@ -170,15 +170,14 @@
                               <li class=" tp-static">
                                  <a class="tp-static" href="{{ route('SellYourBook') }}">Home</a>
                               </li>
-                              <li class="has-dropdown">
-                                 <a href="about.html">Programs</a>
-                              </li>
-                              <li class="has-dropdown">
-                                 <a href="#">Admissions</a>
-                                 <ul class="tp-submenu">
-                                    <li><a href="university-admission-overview.html">Overview</a></li>
-                                 </ul>
-                              </li>
+                              <li class=" tp-static">
+                                <a class="tp-static" href="{{ route('about') }}">About</a>
+                             </li>
+                              <li class=" tp-static">
+                                <a class="tp-static" href="{{ route('contact') }}">Contact</a>
+                             </li>
+
+                              
                               <li class="has-dropdown tp-static">
                                  <a class="tp-static" href="#">Pages</a>
                               </li>

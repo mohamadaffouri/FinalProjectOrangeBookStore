@@ -95,46 +95,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div id="sales-channels"></div>
-                    <div class="row text-center mb-5 mt-4">
-                        <div class="col-4">
-                            <div class="display-7">48%</div>
-                            <div class="text-success my-2 small">
-                                <i class="bi bi-arrow-up me-1 small"></i>30.50%
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <i class="bi bi-circle-fill text-orange me-2 small"></i>
-                                <span class="text-muted">Social Media</span>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="display-7">30%</div>
-                            <div class="text-danger my-2 small">
-                                <i class="bi bi-arrow-down me-1 small"></i>15.20%
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <i class="bi bi-circle-fill text-cyan me-2 small"></i>
-                                <span class="text-muted">Google</span>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="display-7">22%</div>
-                            <div class="text-success my-2 small">
-                                <i class="bi bi-arrow-up me-1 small"></i>1.80%
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <i class="bi bi-circle-fill text-indigo me-2 small"></i>
-                                <span class="text-muted">Email</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-outline-primary btn-icon">
-                            <i class="bi bi-download"></i> Download Report
-                        </button>
-                    </div>
-                </div>
+              
             </div>
         </div>
         <div class="col-lg-4 col-md-12">
@@ -348,12 +309,28 @@
                     <div class="text-white-50">
                         <div class="bi bi-box-seam display-6 mb-3"></div>
                         <div class="display-8 mb-2">Products Sold</div>
-                        <h5>89 Sold</h5>
+                        <h5>{{ array_sum($salesData) }} Sold</h5>
                     </div>
-                    <div id="products-sold"></div>
+                    
+                    <!-- Bar chart -->
+                    <div class="bar-chart-container" style="display: flex; justify-content: space-between; align-items: flex-end; height: 150px; background-color: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px;">
+                        @foreach($salesData as $day => $sales)
+                            <div class="bar" style="width: 30px; background-color: rgba(255, 255, 255, 0.6); border-radius: 4px; height: {{ $sales / 100 }}%;" data-sales="{{ $sales }}">
+                                <span style="position: absolute; top: -25px; color: rgba(255, 255, 255, 0.85); font-size: 12px;">${{ $sales }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                    <!-- Labels -->
+                    <div class="bar-chart-labels" style="display: flex; justify-content: space-between; margin-top: 10px;">
+                        @foreach($salesData as $day => $sales)
+                            <div style="width: 30px; text-align: center; color: white; font-size: 12px;">{{ $day }}</div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
+        
         <div class="col-lg-4 col-md-6">
             <div class="card widget h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">

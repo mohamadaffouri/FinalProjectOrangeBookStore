@@ -112,12 +112,12 @@
                             <p>History</p>
                          </div>
                          <div class="tp-product-details-query-item d-flex align-items-center">
-                            <span>Publishe:  </span>
-                            <p>Luminous Publishing</p>
+                            <span>Author:  </span>
+                            <p>{{$inventoryItem->book->author  }}</p>
                          </div>
                          <div class="tp-product-details-query-item d-flex align-items-center">
                             <span>Language:</span>
-                            <p>English</p>
+                            <p>{{$inventoryItem->book->languages  }}</p>
                          </div>
                       </div>
                       <div class="tp-product-details-social">
@@ -151,7 +151,7 @@
                          <div class="nav nav-tabs justify-content-center p-relative tp-product-tab" id="navPresentationTab" role="tablist">
                             <button class="nav-link" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-description" aria-selected="true">Description</button>
                             <button class="nav-link active" id="nav-addInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-addInfo" type="button" role="tab" aria-controls="nav-addInfo" aria-selected="false">Additional information</button>
-                            <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews (2)</button>
+                            <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews ({{ $totalReviews }})</button>
                             <span id="productTabMarker" class="tp-product-details-tab-line"></span>
                          </div>
                       </nav>
@@ -160,9 +160,7 @@
                             <div class="tp-product-details-additional-p">
                                <div class="row">
                                   <div class="col-xl-12">
-                                     <p>"The Castle" invites readers into a world of mystery and intrigue. Follow protagonist Amelia as she unravels the secrets <br>
-                                        hidden within the ancient fortress's walls, confronting her own past along the way. This captivating tale weaves together <br> history, suspense, and painting a vivid picture of love, loss, and the power of resilience. Prepare to be transported to a realm <br> where the echoes of the past shape the present in ways.</p>
-                                     <p>For years, rumours of the 'Marsh Girl' have haunted Barkley Cove, a quiet town on the North Carolina coast. So in late 1969, <br> when handsome Chase Andrews is found dead.</p>
+                                     <p>{{ $inventoryItem->book->description }}.</p>
                                   </div>
                                </div>
                             </div>
@@ -179,11 +177,11 @@
                                            </tr>
                                            <tr>
                                               <td>Publisher</td>
-                                              <td>Luminous Publishing</td>
+                                              <td>{{$inventoryItem->book->author  }}</td>
                                            </tr>
                                            <tr>
                                               <td>Language</td>
-                                              <td>English</td>
+                                              <td>{{$inventoryItem->book->languages  }}</td>
                                            </tr>
                                            <tr>
                                               <td>Paperback</td>
@@ -259,7 +257,8 @@
         <!-- User Avatar -->
         <div class="tp-product-details-review-avater-thumb">
             <a href="#">
-                <img src="{{ asset('assets/img/shop/product/shop-product-user-1.png') }}" alt="User Image">
+
+<img src="{{ $review->user->image ? asset('storage/' . $review->user->image) : asset('assets/img/event/user.jpg') }}" alt="User Image">
             </a>
         </div>
 
