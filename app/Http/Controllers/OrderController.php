@@ -123,6 +123,8 @@ class OrderController extends Controller
 
         // Clear the cart from session
         session()->forget('cart');
+        session()->forget('cart_total_items');
+        session()->forget('cart_total_price');
 
         // Redirect to a confirmation page or order summary
         return redirect()->back()->with('success', 'Your order has been placed successfully.');
@@ -261,7 +263,7 @@ public function userOrders(Request $request)
     $query = Order::where('user_id', auth()->id())
                   ->where('type', 'Sell');
 
-   
+
     if ($request->filled('order_id')) {
         $query->where('id', $request->input('order_id'));
     }
@@ -275,7 +277,7 @@ public function userBuyOrders(Request $request)
     $query = Order::where('user_id', auth()->id())
                   ->where('type', 'Buy');
 
-   
+
     if ($request->filled('order_id')) {
         $query->where('id', $request->input('order_id'));
     }
@@ -288,7 +290,7 @@ public function userBuyOrders(Request $request)
 
 public function getSalesData()
 {
-  
+
         // Get the current week dates (Monday to Sunday)
         $weekDays = [
             'Mon' => Carbon::now()->startOfWeek(),
@@ -309,7 +311,7 @@ public function getSalesData()
                 ->where('type', 'buy')
                 ->whereDate('created_at', $date)
                 ->sum('total_price'); // Adjust this if you want to sum other values
-            
+
             $salesData[$day] = $totalSales;
         }
         foreach ($weekDays as $day => $date) {
@@ -317,13 +319,13 @@ public function getSalesData()
                 ->where('type', 'sell')
                 ->whereDate('created_at', $date)
                 ->sum('total_price'); // Adjust this if you want to sum other values
-            
+
             $buysData[$day] = $totalSales;
         }
 
         // Pass the sales data to the view
         return view('adminDashboard.index', compact('salesData','buysData'));
-    
+
 }
 
 

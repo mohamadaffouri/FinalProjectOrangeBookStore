@@ -179,7 +179,7 @@
                                 <a class="tp-static" href="{{ route('contact') }}">Contact</a>
                              </li>
 
-                              
+
                               <li class="has-dropdown tp-static">
                                  <a class="tp-static" href="#">Pages</a>
                               </li>
@@ -285,38 +285,8 @@
                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
                   </div>
                   <div class="tp-main-menu-mobile d-xxl-none"></div>
-                  <div class="offcanvas-gallery">
-                     <div class="row gx-2">
-                        <div class="col-md-3 col-3">
-                           <div class="offcanvas-gallery-img fix">
-                              <a href="#"><img src="{{ asset('assets/img/menu/offcanvas/offcanvas-1.jpg') }}" alt=""></a>
-                           </div>
-                        </div>
-                        <div class="col-md-3 col-3">
-                           <div class="offcanvas-gallery-img fix">
-                              <a href="#"><img src="{{ asset('assets/img/menu/offcanvas/offcanvas-2.jpg') }}" alt=""></a>
-                           </div>
-                        </div>
-                        <div class="col-md-3 col-3">
-                           <div class="offcanvas-gallery-img fix">
-                              <a href="#"><img src="{{ asset('assets/img/menu/offcanvas/offcanvas-3.jpg') }}" alt=""></a>
-                           </div>
-                        </div>
-                        <div class="col-md-3 col-3">
-                           <div class="offcanvas-gallery-img fix">
-                              <a href="#"><img src="{{ asset('assets/img/menu/offcanvas/offcanvas-4.jpg') }}" alt=""></a>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="offcanvas-contact">
-                     <h3 class="offcanvas-title sm">Information</h3>
-                     <ul>
-                        <li><a href="tel:1245654">+ 4 20 7700 1007</a></li>
-                        <li><a href="mailto:hello@acadia.com">hello@acadia.com</a></li>
-                        <li><a href="#">Avenue de Roma 158b, Lisboa</a></li>
-                     </ul>
-                  </div>
+
+
                   <div class="offcanvas-social">
                      <h3 class="offcanvas-title sm">Follow Us</h3>
                      <ul>

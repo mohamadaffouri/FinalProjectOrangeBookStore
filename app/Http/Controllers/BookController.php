@@ -68,75 +68,89 @@ class BookController extends Controller
             'edition' => 'nullable|string|max:255',
             'image_url' => 'nullable|url',
             'languages' => 'nullable|string|max:255', // Assuming these fields are in your form
-        'description' => 'nullable|string',
-        'price' => 'required|numeric', // Ensure price is provided
-        'condition' => 'required|string' // Ensure condition is provided
+            'description' => 'nullable|string',
+            'price' => 'required|numeric', // Ensure price is provided
+            'condition' => 'required|string' // Ensure condition is provided
         ]);
 
-        // Check if the book already exists in the database
-        $book = Book::where('isbn_10', $request->isbn_10)
-                    ->orWhere('isbn_13', $request->isbn_13)
-                    ->first();
+        // Start a transaction to ensure data consistency
+        DB::beginTransaction();
 
-        // If the book exists, update it; otherwise, create a new book
-        if ($book) {
-            // Update book details in the database
-            $book->update([
-                'title' => $request->input('title'),
-                'author' => $request->input('author'),
-                'edition' => $request->input('edition'),
-                'isbn_13' => $request->input('isbn_13'),
-                'image' => $request->input('image_url'),
-                'languages' => $request->input('language'),
-                'description' => $request->input('description'),// Update ISBN-13 if changed
-            ]);
-        } else {
-            // Create a new book entry
-            Book::create([
-                'isbn_10' => $request->input('isbn_10'),
-                'isbn_13' => $request->input('isbn_13'),
-                'title' => $request->input('title'),
-                'author' => $request->input('author'),
-                'edition' => $request->input('edition'),
-                'image' => $request->input('image_url'),
-                'languages'=>$request->input('language'),
-                'description'=>$request->input('description'),
-            ]);
+        try {
+            // Check if the book already exists in the database
+            $book = Book::where('isbn_10', $request->isbn_10)
+                        ->orWhere('isbn_13', $request->isbn_13)
+                        ->first();
+
+            // If the book exists, update it; otherwise, create a new book
+            if ($book) {
+                // Update book details in the database
+                $book->update([
+                    'title' => $request->input('title'),
+                    'author' => $request->input('author'),
+                    'edition' => $request->input('edition'),
+                    'isbn_13' => $request->input('isbn_13'),
+                    'image' => $request->input('image_url'),
+                    'languages' => $request->input('languages'),
+                    'description' => $request->input('description'),
+                ]);
+            } else {
+                // Create a new book entry
+                $book = Book::create([
+                    'isbn_10' => $request->input('isbn_10'),
+                    'isbn_13' => $request->input('isbn_13'),
+                    'title' => $request->input('title'),
+                    'author' => $request->input('author'),
+                    'edition' => $request->input('edition'),
+                    'image' => $request->input('image_url'),
+                    'languages' => $request->input('languages'),
+                    'description' => $request->input('description'),
+                ]);
+            }
+
+            // Commit the transaction to save changes in the database
+            DB::commit();
+
+            // Refresh the instance from the database to get the updated data
+            $book = $book->fresh();
+
+            // Save book details in the session (for cart or further use)
+            $cart = session()->get('cart', []); // Retrieve existing cart or empty array
+            $cart[$book->id] = [
+                'id' => $book->id,
+                'title' => $book->title,
+                'author' => $book->author,
+                'isbn_10' => $book->isbn_10,
+                'isbn_13' => $book->isbn_13,
+                'image' => $book->image,
+                'price' => $request->input('price'),
+                'languages' => $request->input('languages'),
+                'quantity' => 1, // Default quantity for the cart
+                'condition' => $request->input('condition'),
+            ];
+            session()->put('cart', $cart);
+
+            // Calculate total items and total price in the cart
+            $totalItems = 0;
+            $totalPrice = 0.0;
+            foreach ($cart as $item) {
+                $totalItems += $item['quantity'];
+                $totalPrice += $item['price'] * $item['quantity'];
+            }
+
+            // Save the total items and total price in the session
+            session()->put('cart_total_items', $totalItems);
+            session()->put('cart_total_price', $totalPrice);
+
+            return redirect()->route('SellYourBook')
+                ->with('success', 'Your book was added to the cart successfully!');
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of error
+            DB::rollback();
+            return redirect()->back()->withErrors('Error saving the book. Please try again.');
         }
-// Save book details in the session (for cart or further use)
-$book = Book::find($book->id);
-$cart = session()->get('cart', []); // Retrieve existing cart or empty array
-$cart[$book->id] = [
-    'id' => $book->id,
-    'title' => $book->title,
-    'author' => $book->author,
-    'isbn_10' => $book->isbn_10,
-    'isbn_13' => $book->isbn_13,
-    'image' => $book->image,
-    'price'=>$request->input('price'),
-    'languages'=>$request->input('language'),
-    'quantity' => 1,
-    'condition'  =>$request->input('condition'),
-     // Default quantity for the cart
-];
-session()->put('cart', $cart);
-$totalItems = 0;
-$totalPrice = 0.0;
-
-// Iterate through the cart to calculate total items and total price
-foreach ($cart as $item) {
-    $totalItems += $item['quantity'];
-    $totalPrice += $item['price'] * $item['quantity'];
-}
-
-// Save the total items and total price in the session
-session()->put('cart_total_items', $totalItems);
-session()->put('cart_total_price', $totalPrice);
-return redirect()->route('SellYourBook')
-->with('success', 'Your book was added to the cart successfully!');
-
-
     }
+
     public function remove(Request $request, $id)
     {
         // Get the current cart from the session
