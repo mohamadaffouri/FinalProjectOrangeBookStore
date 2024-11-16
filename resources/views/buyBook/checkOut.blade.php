@@ -246,12 +246,12 @@
 
                          <!-- subtotal -->
                          <li class="tp-order-info-list-subtotal">
-                            <span>Subtotal</span>
+                            <span>Total</span>
                             <span>${{ $totalPrice }}</span>
                          </li>
 
                          <!-- shipping -->
-                         <li class="tp-order-info-list-shipping">
+                         {{-- <li class="tp-order-info-list-shipping">
                             <span>Shipping</span>
                             <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
                                <span>
@@ -267,48 +267,48 @@
                                   <label for="free_shipping">Free shipping</label>
                                </span>
                             </div>
-                         </li>
+                         </li> --}}
 
                          <!-- total -->
-                         <li class="tp-order-info-list-total">
+                         {{-- <li class="tp-order-info-list-total">
                             <span>Total</span>
                             <span>$1,476.00</span>
-                         </li>
+                         </li> --}}
                       </ul>
                    </div>
                    <div class="tp-checkout-payment">
                       <div class="tp-checkout-payment-item">
-                         <input type="radio" id="back_transfer" name="payment">
-                         <label for="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank Transfer</label>
+                         <input type="radio" id="back_transfer" name="payment" disabled>
+                         <label for="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank Transfer (Soon)</label>
                          <div class="tp-checkout-payment-desc direct-bank-transfer">
                             <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
                          </div>
                       </div>
                       <div class="tp-checkout-payment-item">
-                         <input type="radio" id="cheque_payment" name="payment">
-                         <label for="cheque_payment">Cheque Payment</label>
+                         <input type="radio" id="cheque_payment" name="payment"disabled>
+                         <label for="cheque_payment">Cheque Payment (Soon)</label>
                          <div class="tp-checkout-payment-desc cheque-payment">
                             <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
                          </div>
                       </div>
                       <div class="tp-checkout-payment-item">
-                         <input type="radio" id="cod" name="payment">
-                         <label for="cod">Cash on Delivery</label>
+                         <input type="radio" id="cod" name="payment" checked>
+                         <label for="cod">Cash on Delivery </label>
                          <div class="tp-checkout-payment-desc cash-on-delivery">
                             <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
                          </div>
                       </div>
                       <div class="tp-checkout-payment-item paypal-payment">
-                         <input type="radio" id="paypal" name="payment">
-                         <label for="paypal">PayPal <img src="assets/img/shop/payment-option.png" alt=""> <a href="#">What is PayPal?</a></label>
+                         <input type="radio" id="paypal" name="payment"disabled>
+                         <label for="paypal">PayPal <img src="assets/img/shop/payment-option.png" alt=""> Soon</label>
                       </div>
                    </div>
-                   <div class="tp-checkout-agree">
+                   {{-- <div class="tp-checkout-agree">
                       <div class="tp-checkout-option">
                          <input id="read_all" type="checkbox">
                          <label for="read_all">I have read and agree to the website.</label>
                       </div>
-                   </div>
+                   </div> --}}
                    <form action="{{ route('placeOrder') }}" method="POST">
                     @csrf
                     <div class="tp-checkout-btn-wrapper">

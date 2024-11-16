@@ -223,8 +223,13 @@ class BookController extends Controller
     ->take(8)
     ->get();
 
+    $availableBooks = Inventory::where('status', 'available')
+    ->orderBy('created_at', 'desc')
+    ->take(4)
+    ->get();
+
     // Return the view with the inventory items and new arrivals
-    return view('mainPages.homePage', compact('inventoryItems', 'newArrivals','discountedBooks'));
+    return view('mainPages.homePage', compact('inventoryItems', 'newArrivals','discountedBooks','availableBooks'));
 }
 
 public function buyCart(Request $request)

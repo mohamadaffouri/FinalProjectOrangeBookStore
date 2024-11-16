@@ -180,12 +180,8 @@
                              </li>
 
 
-                              <li class="has-dropdown tp-static">
-                                 <a class="tp-static" href="#">Pages</a>
-                              </li>
-                              <li class="has-dropdown">
-                                 <a href="blog-stories.html">Blog</a>
-                              </li>
+
+
                            </ul>
                         </nav>
                      </div>
@@ -282,7 +278,7 @@
                <div class="offcanvas-main">
                   <div class="offcanvas-content">
                      <h3 class="offcanvas-title">Hello There!</h3>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                     <p></p>
                   </div>
                   <div class="tp-main-menu-mobile d-xxl-none"></div>
 
@@ -316,14 +312,14 @@
                            <a href="index.html"><img src="{{ asset('assets/img/logo/logo-black.png') }}" alt=""></a>
                         </div>
                         <div class="tp-footer-widget-content">
-                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                           <p></p>
                         </div>
                         <div class="tp-footer-contact shop">
                            <span>Got Questions? Call us</span>
-                           <a href="tel:012345678">+670 413 90 762</a>
+                           <a href="tel:012345678">+962 797879006</a>
                         </div>
                         <div class="tp-footer-contact-mail shop">
-                           <a href="mailto:acadia@gmail.com">
+                           <a href="mailto:mohamad.aff80@gmail.com">
                               <span>
                                  <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 5C1 2.2 2.6 1 5 1H13C15.4 1 17 2.2 17 5V10.6C17 13.4 15.4 14.6 13 14.6H5" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -332,7 +328,7 @@
                                     <path d="M1 8.19922H3.4" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                                  </svg>
                               </span>
-                           acadia@gmail.com</a>
+                           mohamad.aff80@gmail.com</a>
                         </div>
                      </div>
                   </div>
@@ -341,12 +337,10 @@
                         <h4 class="tp-footer-widget-title mb-15">About</h4>
                         <div class="tp-footer-widget-link">
                            <ul>
-                              <li><a href="about.html">About Us</a></li>
-                              <li><a href="#">Courses</a></li>
-                              <li><a href="#">News & Blogs</a></li>
-                              <li><a href="#">Become a Teacher</a></li>
-                              <li><a href="#">Events</a></li>
-                              <li><a href="#">Contact</a></li>
+                            <li><a href="{{ route('homePage') }}">Home</a></li>
+                            <li><a href="{{ route('about') }}">About </a></li>
+
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
                            </ul>
                         </div>
                      </div>

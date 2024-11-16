@@ -107,28 +107,7 @@
                       </tbody>
                       </table>
                 </div>
-                <div class="tp-cart-bottom">
-                   <div class="row align-items-end">
-                      <div class="col-xl-6 col-md-8">
-                         <div class="tp-cart-coupon">
-                            <form action="#">
-                               <div class="tp-cart-coupon-input-box">
-                                  <label>Coupon Code:</label>
-                                  <div class="tp-cart-coupon-input d-flex align-items-center">
-                                     <input type="text" placeholder="Enter Coupon Code">
-                                     <button type="submit">Apply</button>
-                                  </div>
-                               </div>
-                            </form>
-                         </div>
-                      </div>
-                      <div class="col-xl-6 col-md-4">
-                         <div class="tp-cart-update text-md-end">
-                            <button type="button" class="tp-cart-update-btn">Update Cart</button>
-                         </div>
-                      </div>
-                   </div>
-                </div>
+
             </div>
 
              <div class="col-xl-3 col-lg-4 col-md-6">
@@ -137,7 +116,7 @@
                       <span class="tp-cart-checkout-top-title">Subtotal</span>
                       <span class="tp-cart-checkout-top-price">${{ $totalPrice }}</span>
                    </div>
-                   <div class="tp-cart-checkout-shipping">
+                   {{-- <div class="tp-cart-checkout-shipping">
                       <h4 class="tp-cart-checkout-shipping-title">Shipping</h4>
 
                       <div class="tp-cart-checkout-shipping-option-wrapper">
@@ -154,7 +133,7 @@
                             <label for="free_shipping">Free shipping</label>
                          </div>
                       </div>
-                   </div>
+                   </div> --}}
                    <div class="tp-cart-checkout-total d-flex align-items-center justify-content-between">
                       <span>Total</span>
                       <span>${{ $totalPrice }}</span>

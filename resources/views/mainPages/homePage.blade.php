@@ -170,7 +170,7 @@
                         <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Sales Books  <span><img src="assets/img/shop/shop-shape.svg" alt=""></span></button>
                       </li>
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Best Seller</button>
+                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Available Books</button>
                       </li>
                     </ul>
                 </div>
@@ -308,94 +308,69 @@
              </div>
              <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                 <div class="row">
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-5.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="off">35% off</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Business Of Art</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Camilla Sten</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-6.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="hot">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>History</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">I Alla Vara Dagar</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-7.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="new">New</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>History</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Michael Connelly</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-sm-6">
-                      <div class="tp-shop-product-item text-center mb-50">
-                         <div class="tp-shop-product-thumb p-relative">
-                            <a href="shop-details.html"><img src="assets/img/shop/product/shop-product-8.jpg" alt=""></a>
-                            <div class="tp-shop-product-thumb-tag">
-                               <span class="hot">Hot</span>
-                            </div>
-                            <div class="tp-shop-product-thumb-btn">
-                               <button>Add to cart</button>
-                            </div>
-                         </div>
-                         <div class="tp-shop-product-content">
-                            <div class="tp-shop-product-tag">
-                               <span>Romance</span>
-                            </div>
-                            <h4 class="tp-shop-product-title"><a href="shop-details.html">Miss Night</a></h4>
-                            <div class="tp-shop-product-price">
-                               <span>$105.00</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
+  @foreach ($availableBooks as $availableBook)
+         <div class="col-lg-3 col-sm-6 mb-60">
+            <div class="tp-shop-product-item text-center mb-50 fixed-card-size d-flex flex-column" style="height: 100%; justify-content: space-between;     background-color: #f9f9f5;
+            ">
+                    <!-- Image container with fixed size and centered image -->
+                    <div class="tp-shop-product-thumb p-relative" style="height: 300px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
+                        <a href="{{ route('books.show', $availableBook->id) }}">
+                                   <img src="{{ $availableBook->book->image ?? asset('images/default-book-image.jpg') }}"
+     alt="Book Image"
+     style="width: 100%; max-width: 300px; height: 200px; object-fit: cover;   background-color: #f8f8f8;">
+                        </a>
+                        <div class="tp-shop-product-thumb-tag">
+                            <span class="{{ $availableBook->condition == 'new' ? 'new' : 'hot' }}">{{ ucfirst($availableBook->condition) }}</span>
+                        </div>
+                          <div class="tp-shop-product-thumb-btn">
+               <form action="{{ route('addToCart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="inventory_id" value="{{ $availableBook->id }}">
+                         <input type="hidden" name="book_id" value="{{ $availableBook->book->id }}">
+                        <input type="hidden" name="title" value="{{ $availableBook->book->title }}">
+                        <input type="hidden" name="condition" value="{{ $availableBook->condition }}">
+                        <input type="hidden" name="price" value="{{ $availableBook->discount_price ?? $availableBook->price }}">
+                        <input type="hidden" name="image" value="{{ $availableBook->book->image ?? asset('images/default-book-image.jpg') }}">
+                       <button type="submit" class="btn btn-primary">Add to cart</button>
+
+
+                    </form>
+            </div>
+                    </div>
+                    <!-- Inventory content -->
+                    <div class="tp-shop-product-content card-content d-flex flex-column" style="flex-grow: 1;">
+                        <div class="tp-shop-product-tag">
+                            <span>{{ $availableBook->book->author }}</span>
+                        </div>
+                        <h4 class="tp-shop-product-title card-title">
+                            <a href="{{ route('books.show', $availableBook->id) }}">{{ $availableBook->book->title }}</a>
+                        </h4>
+                    </div>
+                    <!-- Status, Quantity, and Price at the bottom -->
+                    <div class="tp-shop-product-bottom mt-auto" style="text-align: center; padding-bottom: 10px;">
+                        <div class="tp-shop-product-price card-price">
+                            <span>Quantity: {{ $availableBook->quantity }}</span>
+                        </div>
+                        <div class="tp-shop-product-status card-status">
+                            <span>Status: {{ ucfirst($availableBook->status) }}</span>
+                        </div>
+                            <div class="tp-shop-product-price" style="padding-top: 10px;">
+    @if (!is_null($availableBook->discount_price))
+        <!-- Discounted price and original price -->
+        <span class="new-price" style="color: #e74c3c; font-weight: bold;">${{ number_format($availableBook->discount_price, 2) }}</span>
+        <span class="old-price" style="text-decoration: line-through; color: #999; margin-left: 10px;">${{ number_format($availableBook->price, 2) }}</span>
+    @else
+        <!-- Show only the original price -->
+        <span class="new-price">${{ number_format($availableBook->price, 2) }}</span>
+    @endif
+</div>
+                    </div>
+                </div>
+         </div>
+         @endforeach
+
+
+
                 </div>
              </div>
            </div>

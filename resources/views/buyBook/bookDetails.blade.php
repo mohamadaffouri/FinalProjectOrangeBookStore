@@ -21,9 +21,7 @@
                 </div> <!-- col end -->
                 <div class="col-lg-6">
                    <div class="tp-product-details-wrapper">
-                      <div class="tp-product-details-category">
-                         <span>History</span>
-                      </div>
+
                       <h3 class="tp-product-details-title">{{ $inventoryItem->book->title }}</h3>
 
                       <!-- inventory details -->
@@ -62,7 +60,7 @@
                     </div>
                       <!-- actions -->
                       <div class="tp-product-details-action-wrapper">
-                         <h3 class="tp-product-details-action-title">Quantity</h3>
+
  <div class="tp-product-details-add-to-cart mb-15 w-100">
                              <form action="{{ route('addToCart') }}" method="POST">
                         @csrf
@@ -78,7 +76,7 @@
                     </form>
 
                          </div>
-                         <button class="tp-product-details-buy-now-btn w-100">Buy Now</button>
+                         {{-- <button class="tp-product-details-buy-now-btn w-100">Buy Now</button> --}}
                       </div>
                       {{-- <div class="tp-product-details-action-sm">
                          <button type="button" class="tp-product-details-action-sm-btn">
@@ -107,10 +105,7 @@
                          </button>
                       </div> --}}
                       <div class="tp-product-details-query">
-                         <div class="tp-product-details-query-item d-flex align-items-center">
-                            <span>Book Type: </span>
-                            <p>History</p>
-                         </div>
+
                          <div class="tp-product-details-query-item d-flex align-items-center">
                             <span>Author:  </span>
                             <p>{{$inventoryItem->book->author  }}</p>
@@ -171,10 +166,7 @@
                                   <div class="col-xl-10">
                                      <table>
                                         <tbody>
-                                           <tr>
-                                              <td>Book Type</td>
-                                              <td>History</td>
-                                           </tr>
+
                                            <tr>
                                               <td>Publisher</td>
                                               <td>{{$inventoryItem->book->author  }}</td>

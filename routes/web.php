@@ -122,7 +122,7 @@ Route::get('/about', function () {
 })->name('about');
 
 //------------Inventory Books---------------
-Route::get('/manageBooks', [InventoryController::class, 'adminManageBook'])->name('manageBooks');
+
 Route::put('/inventory/updateCondition/{id}', [InventoryController::class, 'updateCondition'])->name('inventory.updateCondition');
 Route::post('/storeAddress', [UserController::class, 'storeAddress'])->name('address.store');
 
@@ -138,3 +138,6 @@ Route::get('/userOrders', [OrderController::class, 'userOrders'])->name('userOrd
 Route::get('/userBuyOrders', [OrderController::class, 'userBuyOrders'])->name('userBuyOrders');
 Route::get('/sell-orders-totals', [OrderController::class, 'getSellOrdersTotalPerDay'])->name('sellOrdersTotalPerDay');
 Route::get('/index', [OrderController::class, 'getSalesData'])->name('index');
+Route::group(['middleware' => ['role:Admin']], function () {
+    Route::get('/manageBooks', [InventoryController::class, 'adminManageBook'])->name('manageBooks');
+});
