@@ -33,7 +33,7 @@
                             <h4 class="table-title">Order ID</h4>
                         </div>
                         <div class="table-col col-md-3">
-                            <h4 class="table-title">Course Name</h4>
+                            <h4 class="table-title">Book Name</h4>
                         </div>
                         <div class="table-col col-md-2">
                             <h4 class="table-title">Date</h4>
@@ -68,19 +68,11 @@
                                 <span class="badge badge-warning">{{ ucfirst($order->status) }}</span>
                             </div>
                             <div class="table-col col-md-1 text-end">
-                             
+
                     <div class="d-flex">
-                        <div class="dropdown ms-auto">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{ route('order.show', $order->id) }}" class="dropdown-item">Show</a>
-                                {{-- <a href="{{ route('orders.edit', $order->id) }}" class="dropdown-item">Edit</a> --}}
-                            </div>
-                        </div>
+
                     </div>
-              
+
                             </div>
                         </div>
                     </li>

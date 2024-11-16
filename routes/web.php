@@ -33,15 +33,14 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::get('manageUsers', [UserController::class, 'index'])->name('manageUsers');
+
 
 
 
 Route::get('/user/{id}', [UserController::class, 'editUser'])->name('user.edit');
-Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+
+
+
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 
@@ -100,9 +99,9 @@ Route::get('/buyCart', function () {
     return view('buyBook.buyCart');
 })->name('buyCart');
 Route::post('/proceed-order', [OrderController::class, 'proceedOrder'])->name('proceed.order');
-Route::get('/manageSellOrders', [OrderController::class, 'index'])->name('manageSellOrders');
-Route::get('/manageBuyOrders', [OrderController::class, 'indexBuy'])->name('manageBuyOrders');
-Route::get('/manageSellOrders/{order}', [OrderController::class, 'show'])->name('order.show');
+
+
+
 Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 Route::put('/buyOrders/{id}/status', [OrderController::class, 'updateStatusBuyOrders'])->name('buyOrders.updateStatus');
 Route::get('/checkOut', function () {
@@ -137,7 +136,16 @@ Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place
 Route::get('/userOrders', [OrderController::class, 'userOrders'])->name('userOrders');
 Route::get('/userBuyOrders', [OrderController::class, 'userBuyOrders'])->name('userBuyOrders');
 Route::get('/sell-orders-totals', [OrderController::class, 'getSellOrdersTotalPerDay'])->name('sellOrdersTotalPerDay');
-Route::get('/index', [OrderController::class, 'getSalesData'])->name('index');
+
 Route::group(['middleware' => ['role:Admin']], function () {
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::get('manageUsers', [UserController::class, 'index'])->name('manageUsers');
+    Route::get('/manageBuyOrders', [OrderController::class, 'indexBuy'])->name('manageBuyOrders');
+    Route::get('/manageSellOrders/{order}', [OrderController::class, 'show'])->name('order.show');
+    Route::get('/manageSellOrders', [OrderController::class, 'index'])->name('manageSellOrders');
+    Route::get('/index', [OrderController::class, 'getSalesData'])->name('index');
     Route::get('/manageBooks', [InventoryController::class, 'adminManageBook'])->name('manageBooks');
 });

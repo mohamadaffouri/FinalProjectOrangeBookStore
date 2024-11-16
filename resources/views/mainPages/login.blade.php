@@ -68,17 +68,17 @@
                       <div class="col-12">
                          <div class="tp-login-from-remeber">
                             <div class="row">
-                               <div class="col-6">
+                               {{-- <div class="col-6">
                                   <div class="tp-contact-input-remeber login">
                                      <input id="remeber" type="checkbox">
                                      <label for="remeber">Save account</label>
                                   </div>
-                               </div>
-                               <div class="col-6">
+                               </div> --}}
+                               {{-- <div class="col-6">
                                   <div class="tp-login-input-remeber text-end">
                                      <a href="#">Forgot Password?</a>
                                   </div>
-                               </div>
+                               </div> --}}
                             </div>
                          </div>
                          <div class="tp-login-from-btn">

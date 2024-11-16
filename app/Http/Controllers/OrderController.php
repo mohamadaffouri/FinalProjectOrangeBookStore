@@ -290,7 +290,8 @@ public function userBuyOrders(Request $request)
 
 public function getSalesData()
 {
-
+    $buyOrdersCount = Order::where('type', 'buy')->count();
+    $sellOrdersCount = Order::where('type', 'sell')->count();
         // Get the current week dates (Monday to Sunday)
         $weekDays = [
             'Mon' => Carbon::now()->startOfWeek(),
@@ -324,7 +325,7 @@ public function getSalesData()
         }
 
         // Pass the sales data to the view
-        return view('adminDashboard.index', compact('salesData','buysData'));
+        return view('adminDashboard.index', compact('salesData','buysData','buyOrdersCount','sellOrdersCount'));
 
 }
 

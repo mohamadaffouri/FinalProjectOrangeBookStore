@@ -103,7 +103,7 @@ public function show($id)
 {
 
     $inventoryItem = Inventory::with(['book.reviews' => function ($query) {
-        $query->orderBy('created_at', 'desc')->take(2);
+        $query->orderBy('created_at', 'desc')->get();
     }])->findOrFail($id);
     $averageRating = $inventoryItem->book->reviews->avg('rating');
     $totalReviews = $inventoryItem->book->reviews->count();

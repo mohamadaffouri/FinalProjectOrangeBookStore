@@ -469,5 +469,26 @@
 <!-- product details related end -->
 
  </main>
+<style>
+    .tp-product-details-review-list {
+    max-height: 350px; /* Adjust height to fit 2 reviews */
+    overflow-y: auto; /* Add vertical scroll for overflowing content */
+    scrollbar-width: thin; /* For modern browsers, thin scrollbar */
+    scrollbar-color: #ccc transparent; /* Customize scrollbar color */
+}
 
+/* Optional: Style the scrollbar (for WebKit browsers like Chrome and Edge) */
+.tp-product-details-review-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tp-product-details-review-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.tp-product-details-review-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+</style>
 @endsection
