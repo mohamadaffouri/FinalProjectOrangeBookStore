@@ -97,7 +97,14 @@
                     <form action="{{ route('orders.updateStatus', $order->id) }}" method="POST" class="status-form" data-order-id="{{ $order->id }}">
                         @csrf
                         @method('PUT')
-                        <select name="status" class="form-select form-select-sm" onchange="submitStatusChange({{ $order->id }}, this)">
+                        {{-- <select name="status" class="form-select form-select-sm" onchange="submitStatusChange({{ $order->id }}, this)">
+                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped</option>
+                            <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="refunded" {{ $order->status == 'refunded' ? 'selected' : '' }}>Refunded</option>
+                            <option value="canceled" {{ $order->status == 'canceled' ? 'selected' : '' }}>Canceled</option>
+                        </select> --}}
+                        <select name="status" class="form-select form-select-sm" onchange="submitStatusChange({{ $order->id }}, this)" {{ $order->status == 'completed' ? 'disabled' : '' }}>
                             <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped</option>
                             <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>

@@ -136,12 +136,12 @@ public function adminManageBook (Request $request){
     $statusFilter = $request->get('status', null);
     $search = $request->get('search', null);
     $itemsPerPage = $request->get('items_per_page', 10);
-    $conditionMatch = $request->get('condition_match', null); // For sorting by condition matching
+    $conditionMatch = $request->get('condition_match', null);
 
-    // Start building the query
+
     $query = Inventory::with('book');
 
-    // Apply search filter (search by book title or user name)
+
     if ($search) {
         $query->whereHas('book', function ($q) use ($search) {
             $q->where('title', 'like', "%$search%");

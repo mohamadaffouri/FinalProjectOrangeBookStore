@@ -27,7 +27,9 @@
                       <!-- inventory details -->
                       <div class="tp-product-details-inventory d-flex align-items-center mb-10">
                          <div class="tp-product-details-stock mb-10">
-                            <span>In Stock</span>
+                            <span>
+                                {{ $inventoryItem->status }}
+                            </span>
                          </div>
                          <div class="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
                             <div class="tp-product-details-rating">
@@ -124,8 +126,8 @@
                       </div>
                       <div class="tp-product-details-msg mb-15">
                          <ul>
-                            <li>30 days easy returns</li>
-                            <li>Order yours before 2.30pm for same day dispatch</li>
+                            <li>Add to your cart</li>
+                            <li>Then go to place your order</li>
                          </ul>
                       </div>
                       {{-- <div class="tp-product-details-payment d-flex align-items-center flex-wrap justify-content-between">
@@ -350,6 +352,7 @@
 
             // Serialize form data
             var formData = $(this).serialize();
+            {{-- alert(formData); --}}
 
             // Send the AJAX request
             $.ajax({

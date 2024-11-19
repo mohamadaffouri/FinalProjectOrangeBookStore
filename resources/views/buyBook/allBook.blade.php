@@ -97,45 +97,11 @@
              <div class="col-lg-9 order-1 order-lg-1">
                 <div class="row">
                    <div class="col-lg-8">
-                      <div class="tp-shop-grid-sidebar-left d-flex align-items-center mb-20">
-                         <div class="tp-course-grid-sidebar-tab tp-tab">
-                            <ul class="nav nav-tabs" id="filterTab" role="tablist">
-                               <li class="nav-item" role="presentation">
-                                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
-                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M5.66667 1H1V5.66667H5.66667V1Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                                     <path d="M12.9997 1H8.33301V5.66667H12.9997V1Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                                     <path d="M12.9997 8.33337H8.33301V13H12.9997V8.33337Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                                     <path d="M5.66667 8.33337H1V13H5.66667V8.33337Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                                   </svg>
-                                 </button>
-                               </li>
-                               <li class="nav-item" role="presentation">
-                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-                                     <svg width="14" height="14" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15 7.11108H1" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M15 1H1" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path d="M15 13.2222H1" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
-                                     </svg>
-                                 </button>
-                               </li>
-                             </ul>
-                         </div>
-                         <div class="tp-course-filter-top-result">
-                            <p>Showing 1–14 of 26 results</p>
-                         </div>
-                      </div>
+
                    </div>
                    <div class="col-lg-4">
                       <div class="tp-shop-grid-sidebar-right d-flex justify-content-start justify-content-lg-end mb-20">
-                         <div class="tp-course-grid-select tp-course-grid-sidebar-select">
-                            <select class="wide">
-                               <option>Short by:  Latest</option>
-                               <option value="Cleaning Service">Athletic Assistant</option>
-                               <option value="Iron Service">Principal</option>
-                               <option value="Carpet Service"> Assistant Teacher </option>
-                            </select><div class="nice-select wide" tabindex="0"><span class="current">Short by:  Latest</span><ul class="list"><li data-value="Short by: Latest" class="option selected">Short by:  Latest</li><li data-value="Cleaning Service" class="option">Athletic Assistant</li><li data-value="Iron Service" class="option">Principal</li><li data-value="Carpet Service" class="option"> Assistant Teacher </li></ul></div>
-                         </div>
+
                       </div>
                    </div>
                 </div>

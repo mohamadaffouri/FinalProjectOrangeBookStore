@@ -59,7 +59,7 @@
                 <th>Email</th>
 
                 <th>Role</th>
-                <th>Status</th>
+
                 <th class="text-end">Action</th>
             </tr>
             </thead>
@@ -82,10 +82,10 @@
                 <td>{{ $user->email  }}</td>
 
                 <td>{{ $user->role->name  }} </td>
-                <td>
+                {{-- <td>
                     <span class="badge bg-danger">Blocked</span>
-                    {{-- <span class="badge bg-success">Active</span> --}}
-                </td>
+                    <span class="badge bg-success">Active</span>
+                </td> --}}
                 <td class="text-end">
                     <div class="dropdown">
                         <a href="#" data-bs-toggle="dropdown"
@@ -94,7 +94,7 @@
                             <i class="bi bi-three-dots"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a href="#" class="dropdown-item">View Profile</a>
+                            {{-- <a href="#" class="dropdown-item">View Profile</a> --}}
                             <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">Edit</a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                             @csrf

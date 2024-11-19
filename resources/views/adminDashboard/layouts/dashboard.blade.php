@@ -519,8 +519,8 @@
 <div class="menu">
     <div class="menu-header">
         <a href="./dashboard.html" class="menu-header-logo">
-            <img src="{{ asset('logo.svg') }}" alt="logo">
-            <span>CakeAdmin</span>
+            <img src="{{ asset('logo.png') }}" alt="logo">
+            <span>E-Book Admin</span>
         </a>
         <a href="#" class="btn btn-sm menu-close-btn">
             <i class="bi bi-x"></i>
@@ -670,13 +670,13 @@
 
     <!-- content-footer -->
     <footer class="content-footer">
-        <div><a href="https://cakeadmin.com" target="_blank">CakeAdmin</a> © 2023</div>
+        <div><a href="#" target="_blank">E-Book Admin</a> © 2023</div>
         <div>
-            <nav class="nav gap-4">
+            {{-- <nav class="nav gap-4">
                 <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
                 <a href="#" class="nav-link">Change Log</a>
                 <a href="#" class="nav-link">Get Help</a>
-            </nav>
+            </nav> --}}
         </div>
     </footer>
     <!-- ./ content-footer -->

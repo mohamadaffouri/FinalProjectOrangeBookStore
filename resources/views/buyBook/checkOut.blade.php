@@ -48,6 +48,12 @@
                 }
             </style>
              <div class="col-lg-7">
+                @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
                 <div class="tp-checkout-bill-area">
                     <h3 class="tp-checkout-bill-title">Billing Details</h3>
 
@@ -130,12 +136,19 @@
                                             <div class="tp-checkout-input">
                                                 <label>First Name <span>*</span></label>
                                                 <input type="text" name="first_name" placeholder="First Name" value="{{ old('first_name') }}" required>
+                                                 @error('first_name')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="tp-checkout-input">
                                                 <label>Last Name <span>*</span></label>
                                                 <input type="text" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}" required>
+                                                 @error('last_name')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -148,38 +161,54 @@
                                             <div class="tp-checkout-input">
                                                 <label>Country / Region</label>
                                                 <input type="text" name="country" placeholder="United States (US)" value="{{ old('country') }}" required>
+                                                 @error('country')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="tp-checkout-input">
                                                 <label>Street address</label>
                                                 <input type="text" name="address_line1" placeholder="House number and street name" value="{{ old('address_line1') }}" required>
+                                                 @error('address_line1')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
                                             </div>
                                             <div class="tp-checkout-input">
                                                 <input type="text" name="address_line2" placeholder="Apartment, suite, unit, etc. (optional)" value="{{ old('address_line2') }}">
+
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="tp-checkout-input">
                                                 <label>Town / City</label>
                                                 <input type="text" name="city" placeholder="" value="{{ old('city') }}" required>
+                                                 @error('city')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="tp-checkout-input">
                                                 <label>State / County</label>
                                                 <select name="state" required>
-                                                    <option value="New York US">New York US</option>
-                                                    <option value="Berlin Germany">Berlin Germany</option>
-                                                    <option value="Paris France">Paris France</option>
-                                                    <option value="Tokiyo Japan">Tokiyo Japan</option>
+                                                    <option value="Amman">Amman</option>
+                                                    <option value="Irbid">Irbid</option>
+                                                    <option value="Salt">Salt</option>
+                                                    <option value="Zarqa">Zarqa</option>
                                                 </select>
+                                                 @error('state')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="tp-checkout-input">
                                                 <label>Postcode ZIP</label>
                                                 <input type="text" name="zip_code" placeholder="" value="{{ old('zip_code') }}" required>
+                                                 @error('zip_code')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-12">

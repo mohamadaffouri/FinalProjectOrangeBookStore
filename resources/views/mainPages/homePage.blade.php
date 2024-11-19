@@ -441,9 +441,8 @@
              <div class="col-lg-4">
                 <div class="tp-shop-service-item return p-relative d-flex justify-content-between align-items-center mb-30">
                    <div class="tp-shop-service-content">
-                      <h4 class="tp-shop-service-title">Return with
-                         Confidence</h4>
-                      <p>Within 20 Days Return</p>
+                      <h4 class="tp-shop-service-title">Low Cost </h4>
+                      <p>Competitive pricing for books</p>
                    </div>
                    <div class="tp-shop-service-thumb">
                       <img src="assets/img/shop/author/shop-icon-3.png" alt="">

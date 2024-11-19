@@ -4,7 +4,7 @@
    <head>
       <meta charset="utf-8">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <title>Acadia - University & Online Course HTML5 Template</title>
+      <title>E-Book</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -138,7 +138,7 @@
                </div>
                <div class="cartmini__checkout-btn home-shop">
                 <a href="{{ route('sellCart') }}" class="tp-btn mb-10 w-100">View Cart</a>
-                  <a href="checkout.html" class="tp-btn tp-btn-border w-100"> checkout</a>
+                  {{-- <a href="checkout.html" class="tp-btn tp-btn-border w-100"> checkout</a> --}}
                </div>
             </div>
          </div>
@@ -302,7 +302,7 @@
                      <h3 class="offcanvas-title sm">Information</h3>
                      <ul>
                         <li><a href="tel:1245654">+ 4 20 7700 1007</a></li>
-                        <li><a href="mailto:hello@acadia.com">hello@acadia.com</a></li>
+                        <li><a href="mailto:hello@acadia.com">Mohamad.aff80@gmail.com</a></li>
                         <li><a href="#">Avenue de Roma 158b, Lisboa</a></li>
                      </ul>
                   </div>
@@ -370,7 +370,7 @@
                   </div>
                   <div class="col-xl-2 col-lg-3 col-md-5 col-sm-5">
                      <div class="tp-footer-widget tp-footer-shop-col-3 mb-30">
-                        <h4 class="tp-footer-widget-title mb-15">Quick links</h4>
+                        {{-- <h4 class="tp-footer-widget-title mb-15">Quick links</h4>
                         <div class="tp-footer-widget-link">
                            <ul>
                               <li><a href="#">Students</a></li>
@@ -380,7 +380,7 @@
                               <li><a href="#">Alumni</a></li>
                               <li><a href="#">Visit</a></li>
                            </ul>
-                        </div>
+                        </div> --}}
                      </div>
                   </div>
                   <div class="col-xl-4 col-lg-3 col-md-7 col-sm-7">
@@ -398,12 +398,12 @@
                                  </div>
                               </div>
                            </form>
-                           <div class="tp-footer-newsletter-social tp-footer-inner-social">
+                           {{-- <div class="tp-footer-newsletter-social tp-footer-inner-social">
                               <a class="social-fb" href="#"><i class="fa-brands fa-facebook-f"></i></a>
                               <a class="social-twit" href="#"><i class="fa-brands fa-twitter"></i></a>
                               <a class="social-lnkd" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
                               <a class="social-yout" href="#"><i class="fa-brands fa-youtube"></i></a>
-                           </div>
+                           </div> --}}
                         </div>
                      </div>
                   </div>
@@ -415,7 +415,7 @@
                <div class="row align-items-center">
                   <div class="col-md-6">
                      <div class="tp-footer-copyright ">
-                        <span>© 2024 <a href="#">Acadia</a>. All rights reserved.</span>
+                        <span>© 2024 <a href="#">E-Book</a>. All rights reserved.</span>
                      </div>
                   </div>
                   <div class="col-md-6">

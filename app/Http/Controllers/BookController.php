@@ -127,6 +127,7 @@ class BookController extends Controller
                 'languages' => $request->input('languages'),
                 'quantity' => 1, // Default quantity for the cart
                 'condition' => $request->input('condition'),
+
             ];
             session()->put('cart', $cart);
 

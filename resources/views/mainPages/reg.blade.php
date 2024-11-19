@@ -30,7 +30,7 @@
                       <div class="col-12">
                          <div class="tp-login-input p-relative">
                             <label>Email </label>
-                            <input type="email" name="email" placeholder="Type your email ">
+                            <input type="email" name="email" placeholder="Type your email " >
                             @error('email')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -95,10 +95,10 @@
                          <div class="tp-login-from-remeber">
                             <div class="row">
                                <div class="col-12">
-                                  <div class="tp-contact-input-remeber login">
+                                  {{-- <div class="tp-contact-input-remeber login">
                                      <input id="remeber" type="checkbox">
                                      <label for="remeber">Save account</label>
-                                  </div>
+                                  </div> --}}
                                </div>
                             </div>
                          </div>

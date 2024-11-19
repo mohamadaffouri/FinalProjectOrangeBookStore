@@ -119,7 +119,54 @@ public function create()
                 'phone' => 'required|string|max:20',
                 'email' => 'required|email|max:255',
                 'order_notes' => 'nullable|string|max:1000',
+            ], [
+                // Custom messages
+                'first_name.required' => 'Please enter your First Name.',
+                'first_name.string' => 'The First Name must be a valid text.',
+                'first_name.max' => 'The First Name may not be longer than 255 characters.',
+
+                'last_name.required' => 'Please enter your Last Name.',
+                'last_name.string' => 'The Last Name must be a valid text.',
+                'last_name.max' => 'The Last Name may not be longer than 255 characters.',
+
+                'company_name.string' => 'The Company Name must be a valid text.',
+                'company_name.max' => 'The Company Name may not be longer than 255 characters.',
+
+                'country.required' => 'Please select your Country.',
+                'country.string' => 'The Country must be a valid text.',
+                'country.max' => 'The Country may not be longer than 100 characters.',
+
+                'address_line1.required' => 'Address Line 1 is required.',
+                'address_line1.string' => 'Address Line 1 must be a valid text.',
+                'address_line1.max' => 'Address Line 1 may not be longer than 255 characters.',
+
+                'address_line2.string' => 'Address Line 2 must be a valid text.',
+                'address_line2.max' => 'Address Line 2 may not be longer than 255 characters.',
+
+                'city.required' => 'Please enter your City.',
+                'city.string' => 'The City must be a valid text.',
+                'city.max' => 'The City may not be longer than 100 characters.',
+
+                'state.required' => 'Please enter your State.',
+                'state.string' => 'The State must be a valid text.',
+                'state.max' => 'The State may not be longer than 100 characters.',
+
+                'zip_code.required' => 'Please enter your Zip Code.',
+                'zip_code.string' => 'The Zip Code must be a valid text.',
+                'zip_code.max' => 'The Zip Code may not be longer than 20 characters.',
+
+                'phone.required' => 'Please enter your Phone number.',
+                'phone.string' => 'The Phone number must be a valid text.',
+                'phone.max' => 'The Phone number may not be longer than 20 characters.',
+
+                'email.required' => 'Please enter your Email address.',
+                'email.email' => 'The Email address must be a valid email.',
+                'email.max' => 'The Email address may not be longer than 255 characters.',
+
+                'order_notes.string' => 'The Order Notes must be a valid text.',
+                'order_notes.max' => 'The Order Notes may not be longer than 1000 characters.',
             ]);
+
 
             // Save the validated address details into the addresses table
             $address = new Address([
